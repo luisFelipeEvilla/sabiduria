@@ -1,0 +1,19 @@
+{
+  "name": "sabiduria",
+  "version": "1.0.0",
+  "description": "aplicación para gestion de asistencia a clases de alumnos matriculados en una universidad",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisFelipeEvilla/sabiduria.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luisFelipeEvilla/sabiduria/issues"
+  },
+  "homepage": "https://github.com/luisFelipeEvilla/sabiduria#readme"
+}
