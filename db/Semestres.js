@@ -1,13 +1,8 @@
 const { db } = require('../db');
 
 
-const getProgramas= async () => {
-    const query = `SELECT ProgramaAcademico.id,
-    ProgramaAcademico.nombre,
-    Departamento.nombre as departamento
-    FROM ProgramaAcademico,
-    Departamento
-    WHERE ProgramaAcademico.id_departamento = Departamento.id;`;
+const getSemestres = async () => {
+    const query = `SELECT * FROM Semestre`;
 
     return new Promise ((resolve, reject)=>{
 
@@ -23,13 +18,15 @@ const getProgramas= async () => {
     })
 }
 
-const getPrograma = async (id) => {
-    const query =`SELECT PlanDeEstudio.id,
-    strftime('%Y', PlanDeEstudio.ano) as ano
-    FROM ProgramaAcademico,
-    PlanDeEstudio
-    WHERE ProgramaAcademico.id = PlanDeEstudio.id_programa_academico
-    AND ProgramaAcademico.id = ${id};`;
+const getSemestre = async (id) => {
+    const query =`
+    SELECT Asignatura.nombre
+      FROM Semestre,
+           Cursa,
+           Asignatura
+     WHERE Semestre.id = Cursa.id_semestre AND 
+           Asignatura.id = Cursa.id_asignatura AND 
+           Semestre.id =${id};`;
 
     return new Promise ((resolve, reject)=>{
 
@@ -45,14 +42,13 @@ const getPrograma = async (id) => {
     })
 }
 
-
-const addPrograma = async (nombre, id_departamento) => {
+const addSemestre = async (numero, id_plan_de_estudio) => {
 
 
     return new Promise((resolve, reject)=> {
 
-        let query = 'INSERT INTO ProgramaAcademico (nombre, id_departamento) VALUES(?,?);'
-        const params = [nombre, id_departamento];
+        let query = 'INSERT INTO Semestre (numero, id_plan_de_estudio) VALUES(?,?);'
+        const params = [numero, id_plan_de_estudio];
 
         db.serialize(() =>{
             db.run(query, params, (err, rows)  =>{
@@ -68,10 +64,9 @@ const addPrograma = async (nombre, id_departamento) => {
     })
 }
 
-
-const deletePrograma = async (id) => {
+const deleteSemestre = async (id) => {
     return new Promise ((resolve,reject) => {
-        let query = 'DELETE FROM ProgramaAcademico WHERE id =?;'
+        let query = 'DELETE FROM Semestre WHERE id =?;'
         const params = id
 
         db.serialize(() =>{
@@ -86,11 +81,9 @@ const deletePrograma = async (id) => {
         })
     })
 }
-
-
-const updatePrograma = async (id, nombre, id_departamento) => {
-    const query = `UPDATE ProgramaAcademico set nombre=?, id_departamento=? WHERE id=?;`;
-    const params = [nombre,id_departamento, id]
+const updateSemestre = async (id, numero, id_plan_de_estudio) => {
+    const query = `UPDATE Semestre set numero=?, id_plan_de_estudio=? WHERE id=?;`;
+    const params = [numero, id_plan_de_estudio, id]
     return new Promise ((resolve,reject) => {
         db.serialize(() =>{
             db.run(query, params, (err, rows)  =>{
@@ -107,12 +100,12 @@ const updatePrograma = async (id, nombre, id_departamento) => {
 
 
 }
+
 module.exports = {
-    getProgramas,
-    getPrograma,
-    addPrograma,
-    deletePrograma,
-    updatePrograma
-
-
+    getSemestres,
+    getSemestre,
+    addSemestre,
+    deleteSemestre,
+    updateSemestre
+    
 }

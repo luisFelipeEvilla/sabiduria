@@ -1,34 +1,35 @@
 const router = require('express').Router();
 const { db } = require('../db');
-const Programa = require('../db/Programas.js');
+const Salon = require('../db/Salones.js');
 
 
 router.get('/', async (req, res) => {
-    const Programas = await Programa.getProgramas();
 
-    res.send(Programas)
+
+    const Salones = await Salon.getSalones();
+
+    res.send(Salones)
 })
+
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
 
-    const ProgramaInfo = await Programa.getPrograma(id);
+    const SalonInfo = await Salon.getSalon(id);
 
-    res.send(ProgramaInfo).status(200);
+    res.send(SalonInfo).status(200);
 
     
 })
 
 router.post('/', async (req, res)  => {
 
-    const { nombre, id_departamento } = req.body
+    const { nombre } = req.body
 
-    const resultado = await Programa.addPrograma(nombre, id_departamento);
+    const resultado = await Salon.addSalon(nombre);
 
     res.send(resultado).status(200)
-
-
 })
 
 
@@ -36,20 +37,19 @@ router.delete('/:id', async (req,res) => {
     const { id } = req.params;
 
 
-    const resultado = await Programa.deletePrograma(id);
+    const resultado = await Salon.deleteSalon(id);
 
     res.send(resultado).status(200);
 })
 
 router.put('/:id/actualizar', async (req,res)=> {
     const { id } = req.params;
-    const { nombre, id_departamento} = req.body;
+    const { nombre} = req.body
 
-    const resultado = await Programa.updatePrograma(id, nombre, id_departamento);
+    const resultado = await Salon.updateSalon(id, nombre);
 
     res.send(resultado).status(200);
 
 })
-
 
 module.exports = router;
