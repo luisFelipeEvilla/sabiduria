@@ -9,6 +9,8 @@ const semestres = require('./routes/semestres');
 const estudiantes = require('./routes/estudiantes');
 const salones = require('./routes/salones');
 const cursos = require('./routes/cursos');
+const horarios = require('./routes/horarios');
+const periodos = require('./routes/periodos');
 
 
 
@@ -30,6 +32,8 @@ app.use('/semestres', semestres);
 app.use('/estudiantes', estudiantes);
 app.use('/salones', salones);
 app.use('/cursos', cursos);
+app.use('/horarios', horarios);
+app.use('/periodos', periodos);
 
 const PORT = 3000;
 
