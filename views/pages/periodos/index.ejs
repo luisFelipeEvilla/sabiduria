@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <h3>Periodos</h3>
+        <a href="periodos/agregar" class="btn btn-success btn" role="button" aria-disabled="true">Agregar</a>
+      </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-4">#</th>
+                <th scope="col-4">Periodo</th>
+
+                <th scope="col-4">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% 
+                    let contador = 1;
+
+                    periodos.forEach(periodo => { %>
+                    <tr>
+                        <td><%= contador++ %></td>
+                        <td><%= periodo.descripcion %></td>
+
+
+                        <td>
+                            <a href="periodos/<%= periodo.id %>/actualizar" type="button" class="btn btn-info">Actualizar</button>
+                            <a href="periodos/<%= periodo.id %>/eliminar" class="btn btn-danger">Eliminar</button>
+                              <a href="periodos/<%= periodo.id %>" class="btn btn-warning">Detalle</button>
+                        </td>                        
+              </tr>
+               <% }); %> 
+              <tr>
+            </tbody>
+          </table>
+    </div>
+</main>
+</body>
+</html>

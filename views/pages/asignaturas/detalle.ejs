@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <h3><%= asignatura.asignatura[0].nombre %></h3>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Cursos</h4>
+          <a href="<%= asignatura.asignatura[0].id %>/agregarCurso" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Curso</a>
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Curso ID</th>
+                  <th scope="col-4">Docente</th>
+                  <th scope="col-4">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contador = 1;
+  
+                      asignatura.cursos.forEach(curso => { %>
+                      <tr>
+                          <td><%= contador++ %></td>
+                          <td><%= curso.id %></td>   
+                          <td><%= curso.docente %></td>                      
+                          <td>
+                           
+                          </td>
+                                                  
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Departamentos</h4>
+          <a href="<%= asignatura.asignatura[0].id %>/agregarDepartamento" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Departamento</a>
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Nombre</th>
+                  <th scope="col-4">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contadord = 1;
+  
+                      asignatura.departamentos.forEach(departamento => { %>
+                      <tr>
+                          <td><%= contadord++ %></td>
+                          <td><%= departamento.nombre %></td>                        
+                          <td>
+                           <a href="./<%= asignatura.asignatura[0].id %>/eliminarDepartamento" class="btn btn-danger">Eliminar</button>
+                          </td>
+                                                  
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+      </div>
+
+      
+
+      
+      
+    </div>
+</main>
+</body>
+</html>

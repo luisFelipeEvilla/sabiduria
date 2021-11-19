@@ -1,15 +1,32 @@
 const router = require('express').Router();
 const { db } = require('../db');
 const Curso = require('../db/Cursos.js');
+const Asignatura = require('../db/Asignaturas.js');
+const Docente = require('../db/Docentes.js');
+const Salon = require('../db/Salones.js');
 
 
 router.get('/', async (req, res) => {
 
 
-    const Cursos = await Curso.getCursos();
+    const cursos = await Curso.getCursos();
 
-    res.send(Cursos)
+
+    res.render('pages/cursos/index.ejs',{ cursos });
 })
+
+router.get('/agregar', async (req, res) => {
+
+
+    const asignaturas = await Asignatura.getAsignaturas();
+    const docentes = await Docente.getDocentes();
+    const salones = await Salon.getSalones();
+
+
+    console.log(asignaturas);
+    res.render('pages/cursos/agregar.ejs',{ asignaturas, docentes, salones });
+})
+
 
 
 router.get('/:id', async (req, res) => {
@@ -29,17 +46,17 @@ router.post('/', async (req, res)  => {
 
     const resultado = await Curso.addCurso(id_asignatura, id_docente, id_salon);
 
-    res.send(resultado).status(200)
+    res.redirect("/cursos")
 })
 
 
-router.delete('/:id', async (req,res) => {
+router.get('/:id/eliminar', async (req,res) => {
     const { id } = req.params;
 
 
     const resultado = await Curso.deleteCurso(id);
 
-    res.send(resultado).status(200);
+    res.redirect("/cursos")
 })
 
 router.put('/:id/actualizar', async (req,res)=> {

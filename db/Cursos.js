@@ -1,9 +1,9 @@
 const { db } = require('../db');
 
 const getCursos = async () => {
-    const query = `SELECT Asignatura.nombre AS Asignatura,
-    Docente.nombre AS Docente,
-    Salon.nombre AS Salon
+    const query = `SELECT Curso.id, Asignatura.nombre AS asignatura,
+    Docente.nombre AS docente,
+    Salon.nombre AS salon
     FROM Curso,
     Asignatura,
     Docente,
@@ -56,8 +56,18 @@ const getCurso = async (id) => {
                     }
 
                     const horarios = rows
+                    let query = `SELECT * FROM Curso WHERE id = ${id};`;
 
-                    resolve({estudiantes, horarios})
+                    db.all(query, (err, rows) => {
+                        if (err) {
+                            console.log(err.message);
+                        }
+
+                        const curso = rows
+                        resolve({estudiantes, horarios, curso})
+                    })
+
+                    
 
 
                 })
@@ -131,10 +141,31 @@ const updateCurso = async (id, id_asignatura, id_docente, id_salon) => {
 
 }
 
+const updateDocente = async (id, id_docente) => {
+    const query = `UPDATE Curso set id_docente=? WHERE id=?;`;
+    const params = [id_docente, id]
+    return new Promise ((resolve,reject) => {
+        db.serialize(() =>{
+            db.run(query, params, (err, rows)  =>{
+                if (err) {
+                    console.log(err.message)
+                    reject(console.log('Error actualizando el recurso.'))
+                }
+                resolve(rows)
+                
+            })
+        })
+
+    })
+
+
+}
+
 module.exports = {
     getCursos,
     getCurso,
     addCurso,
     deleteCurso,
-    updateCurso
+    updateCurso,
+    updateDocente
 }

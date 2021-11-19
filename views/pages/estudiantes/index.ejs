@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <h3>Estudiantes</h3>
+        <a href="estudiantes/agregar" class="btn btn-success btn" role="button" aria-disabled="true">Agregar</a>
+      </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-4">#</th>
+                <th scope="col-4">Nombre</th>
+                <th scope="col-4">Programa Academico</th>
+                <th scope="col-4">Periodo de Ingreso</th>
+                <th scope="col-4">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% 
+                    let contador = 1;
+
+                    estudiantes.forEach(estudiante => { %>
+                    <tr>
+                        <td><%= contador++ %></td>
+                        <td><%= estudiante.nombre %></td>
+                        <td><%= estudiante.programa %></td>
+                        <td><%= estudiante.periodo_ingreso %></td>
+                        <td>
+                            <a href="estudiantes/<%= estudiante.id %>/actualizar" type="button" class="btn btn-info">Actualizar</button>
+                            <a href="estudiantes/<%= estudiante.id %>/eliminar" class="btn btn-danger">Eliminar</button>
+                              <a href="estudiantes/<%= estudiante.id %>" class="btn btn-warning">Detalle</button>
+                        </td>                        
+              </tr>
+               <% }); %> 
+              <tr>
+            </tbody>
+          </table>
+    </div>
+</main>
+</body>
+</html>

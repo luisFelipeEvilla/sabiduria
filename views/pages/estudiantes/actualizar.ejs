@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+
+
+
+<main>
+    
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="../ <%= estudiante.estudiante[0].id %> /actualizar" method="POST" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id ="nombre" name = "nombre" value="<%= estudiante.estudiante[0].nombre %>">
+
+          <label for="nombre" style="margin-top:30px" class="form-label">Plan de  Estudio</label>
+          <div class="form-group">
+            
+            <select class="form-control" id="id_plan_de_estudio" name="id_plan_de_estudio">
+
+              
+              <% planestudios.forEach(plan=> {%>
+
+                <option value='<%= plan.id %>'>Plan Estudios #<%= plan.id %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+
+          <label style="margin-top:30px" for="nombre" class="form-label">Periodo Ingreso</label>
+
+          <div class="form-group">
+
+            <select class="form-control" id="id_periodo_ingreso" name="id_periodo_ingreso">
+
+              
+              <% periodos.forEach(periodo=> {%>
+
+                <option value='<%= periodo.id %>'> <%= periodo.descripcion %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+
+
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+</main>
+</body>
+</html>

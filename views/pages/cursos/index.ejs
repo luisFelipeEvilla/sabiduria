@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <h3>Cursos</h3>
+        <a href="cursos/agregar" class="btn btn-success btn" role="button" aria-disabled="true">Agregar</a>
+      </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-4">#</th>
+                <th scope="col-4">Asignatura</th>
+                <th scope="col-4">Docente</th>
+                <th scope="col-4">Salon</th>
+                <th scope="col-4">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% 
+                    let contador = 1;
+
+                    cursos.forEach(curso => { %>
+                    <tr>
+                        <td><%= contador++ %></td>
+                        <td><%= curso.asignatura %></td>
+                        <td><%= curso.docente %></td>
+                        <td><%= curso.salon %></td>
+                        <td>
+                            <a href="cursos/<%= curso.id %>/actualizar" type="button" class="btn btn-info">Actualizar</button>
+                            <a href="cursos/<%= curso.id %>/eliminar" class="btn btn-danger">Eliminar</button>
+                              <a href="cursos/<%= curso.id %>" class="btn btn-warning">Detalle</button>
+                        </td>                        
+              </tr>
+               <% }); %> 
+              <tr>
+            </tbody>
+          </table>
+    </div>
+</main>
+</body>
+</html>

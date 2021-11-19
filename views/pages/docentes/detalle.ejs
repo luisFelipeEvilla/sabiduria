@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <h3><%= docente.docente[0].nombre %></h3>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Cursos</h4>
+          <a href="<%= docente.docente[0].id %>/agregarCurso" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Curso</a>
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Curso ID</th>
+                  <th scope="col-4">Asignatura</th>
+                  <th scope="col-4">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contador = 1;
+  
+                      docente.cursos.forEach(curso => { %>
+                      <tr>
+                          <td><%= contador++ %></td>
+                          <td><%= curso.id %></td> 
+                          <td><%= curso.asignatura %></td>                        
+                          <td>
+                            <a href="./<%= docente.docente[0].id %>/moverCurso/<%= curso.id %>" class="btn btn-warning">Mover</button>
+                          </td>
+                                                  
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+      </div>
+      
+      
+    </div>
+</main>
+</body>
+</html>

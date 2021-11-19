@@ -56,7 +56,18 @@ const getPeriodo = async (id) => {
                 
                     const cursos = rows
 
-                    resolve({nuevos_ingresos, cursos})
+                    let query = `SELECT * FROM Periodo WHERE id = ${id};`;
+
+                    db.all(query, (err, rows) => {
+                        if (err) {
+                            console.log(err.message);
+                        }
+
+                        const periodo = rows
+                        resolve({nuevos_ingresos, cursos, periodo})
+                    })
+
+                    
 
 
                 })

@@ -11,6 +11,7 @@ const salones = require('./routes/salones');
 const cursos = require('./routes/cursos');
 const horarios = require('./routes/horarios');
 const periodos = require('./routes/periodos');
+const admin = require('./routes/admin');
 
 
 
@@ -18,7 +19,7 @@ const periodos = require('./routes/periodos');
 
 const app = express();
 
-
+app.set('view engine','ejs');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json())
@@ -34,6 +35,7 @@ app.use('/salones', salones);
 app.use('/cursos', cursos);
 app.use('/horarios', horarios);
 app.use('/periodos', periodos);
+app.use('/admin', admin);
 
 const PORT = 3000;
 

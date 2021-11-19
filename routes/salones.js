@@ -6,9 +6,25 @@ const Salon = require('../db/Salones.js');
 router.get('/', async (req, res) => {
 
 
-    const Salones = await Salon.getSalones();
+    const salones = await Salon.getSalones();
 
-    res.send(Salones)
+    res.render('pages/salones/index.ejs',{ salones });
+})
+
+router.get('/:id/actualizar', async (req, res) => {
+    const { id } = req.params;
+
+    const salon = await Salon.getSalon(id);
+
+    res.render('pages/salones/actualizar.ejs',{ salon });
+})
+
+router.get('/agregar', async (req, res) => {
+
+
+   
+
+    res.render('pages/salones/agregar.ejs');
 })
 
 
@@ -29,26 +45,26 @@ router.post('/', async (req, res)  => {
 
     const resultado = await Salon.addSalon(nombre);
 
-    res.send(resultado).status(200)
+    res.redirect("/salones")
 })
 
 
-router.delete('/:id', async (req,res) => {
+router.get('/:id/eliminar', async (req,res) => {
     const { id } = req.params;
 
 
     const resultado = await Salon.deleteSalon(id);
 
-    res.send(resultado).status(200);
+    res.redirect("/salones")
 })
 
-router.put('/:id/actualizar', async (req,res)=> {
+router.post('/:id/actualizar', async (req,res)=> {
     const { id } = req.params;
     const { nombre} = req.body
 
     const resultado = await Salon.updateSalon(id, nombre);
 
-    res.send(resultado).status(200);
+    res.redirect("/salones")
 
 })
 
