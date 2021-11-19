@@ -20,7 +20,7 @@ const getSemestres = async () => {
 
 const getSemestre = async (id) => {
     const query =`
-    SELECT Asignatura.nombre
+    SELECT Semestre.id, Asignatura.nombre
       FROM Semestre,
            Cursa,
            Asignatura
@@ -35,7 +35,19 @@ const getSemestre = async (id) => {
                 if (err) {
                     console.log(err.message);
                 }
-                resolve(rows)
+                const asignaturas = rows;
+                let query = `SELECT * From Semestre WHERE id =${id} `
+                db.all(query, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+    
+                    const semestre = rows
+                    resolve({asignaturas, semestre})
+    
+
+                })
+                resolve(semestre)
             });
         })
 

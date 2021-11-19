@@ -6,9 +6,29 @@ const Periodo = require('../db/Periodos.js');
 router.get('/', async (req, res) => {
 
 
-    const Periodos = await Periodo.getPeriodos();
+    const periodos = await Periodo.getPeriodos();
 
-    res.send(Periodos)
+
+    res.render('pages/periodos/index.ejs',{ periodos });
+})
+
+router.get('/agregar', async (req, res) => {
+
+
+
+
+    res.render('pages/periodos/agregar.ejs');
+})
+
+router.get('/:id/actualizar', async (req, res) => {
+    const { id } = req.params;
+
+
+    const periodo = await Periodo.getPeriodo(id);
+
+    res.render('pages/periodos/actualizar.ejs', {periodo});
+
+    
 })
 
 router.get('/:id', async (req, res) => {
@@ -28,25 +48,25 @@ router.post('/', async (req, res)  => {
 
     const resultado = await Periodo.addPeriodo(descripcion);
 
-    res.send(resultado).status(200)
+    res.redirect("/periodos")
 })
 
-router.delete('/:id', async (req,res) => {
+router.get('/:id/eliminar', async (req,res) => {
     const { id } = req.params;
 
 
     const resultado = await Periodo.deletePeriodo(id);
 
-    res.send(resultado).status(200);
+    res.redirect("/periodos")
 })
 
-router.put('/:id/actualizar', async (req,res)=> {
+router.post('/:id/actualizar', async (req,res)=> {
     const { id } = req.params;
     const { descripcion } = req.body
 
     const resultado = await Periodo.updatePeriodo(id, descripcion);
 
-    res.send(resultado).status(200);
+    res.redirect("/periodos")
 
 })
 

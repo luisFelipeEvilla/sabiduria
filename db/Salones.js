@@ -19,7 +19,7 @@ const getSalones = async () => {
 
 const getSalon = async (id) => {
     const query =`
-    SELECT Curso.id,
+    SELECT Salon.id, Curso.id as id_curso,
        Asignatura.nombre as asignatura,
        Docente.nombre as docente
         FROM Salon,
@@ -38,7 +38,20 @@ const getSalon = async (id) => {
                 if (err) {
                     console.log(err.message);
                 }
-                resolve(rows)
+
+                const cursos = rows
+                let query = `SELECT * From Salon WHERE id =${id} `
+                db.all(query, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+    
+                    const salon = rows
+                    resolve({cursos, salon})
+    
+
+                })
+
             });
         })
 

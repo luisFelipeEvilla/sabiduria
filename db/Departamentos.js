@@ -86,6 +86,7 @@ const updateDepartamento = async (id, nombre) => {
 
 const getDepartamento = async (id) => {
     let query = `SELECT 
+    d.id,
     d.nombre
     FROM Docente d
     INNER JOIN Departamento de
@@ -111,9 +112,36 @@ const getDepartamento = async (id) => {
                         console.log(err.message);
                     }
 
+
+
                     const asignaturas = rows
 
-                    resolve({docentes, asignaturas})
+                    let query = `SELECT * FROM Departamento WHERE id = ${id};`;
+
+                    db.all(query, (err, rows) => {
+                        if (err) {
+                            console.log(err.message);
+                        }
+
+                        const departamento = rows
+                        let query = `SELECT ProgramaAcademico.nombre, ProgramaAcademico.id
+                             FROM Departamento,
+                             ProgramaAcademico
+                             WHERE Departamento.id = ProgramaAcademico.id_departamento AND 
+                             Departamento.id = ${id};`;
+
+                        db.all(query, (err, rows) => {
+                            if (err) {
+                                console.log(err.message);
+                            }
+    
+                            const programas = rows
+                            resolve({docentes, asignaturas, departamento, programas })
+                        })
+                        
+                    })
+
+
 
 
                 })

@@ -2,7 +2,7 @@ const { db } = require('../db');
 
 
 const getEstudiantes = async () => {
-    const query = `SELECT Estudiante.nombre,
+    const query = `SELECT Estudiante.id, Estudiante.nombre,
     ProgramaAcademico.nombre AS programa,
     Periodo.descripcion AS periodo_ingreso
     FROM Estudiante,
@@ -28,7 +28,7 @@ const getEstudiantes = async () => {
 }
 
 const getEstudiante = async (id) => {
-    const query = `SELECT Asignatura.nombre AS asignatura,
+    const query = `SELECT Estudiante.id, Asignatura.nombre AS asignatura,
        Docente.nombre AS docente,
        Salon.nombre AS salon
         FROM Estudiante,
@@ -51,7 +51,20 @@ const getEstudiante = async (id) => {
                 if (err) {
                     console.log(err.message);
                 }
-                resolve(rows)
+
+                const asignaturas = rows
+                let query = `SELECT * From Estudiante WHERE id =${id} `
+                db.all(query, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+    
+                    const estudiante = rows
+                    resolve({asignaturas, estudiante})
+    
+
+                })
+
             });
         })
 

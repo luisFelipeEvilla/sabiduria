@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <h3>Planes de Estudio</h3>
+        <a href="planestudios/agregar" class="btn btn-success btn" role="button" aria-disabled="true">Agregar</a>
+      </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-4">#</th>
+                <th scope="col-4">Año</th>
+                <th scope="col-4">Programa Academico</th>
+                <th scope="col-4">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% 
+                    let contador = 1;
+
+                    planEstudios.forEach(plan => { %>
+                    <tr>
+                        <td><%= contador++ %></td>
+                        <td><%= plan.ano %></td>
+                        <td><%= plan.programa %></td>
+                        <td>
+                            <a href="planestudios/<%= plan.id %>/actualizar" type="button" class="btn btn-info">Actualizar</button>
+                            <a href="planestudios/<%= plan.id %>/eliminar" class="btn btn-danger">Eliminar</button>
+                              <a href="planestudios/<%= plan.id %>" class="btn btn-warning">Detalle</button>
+                        </td>                        
+              </tr>
+               <% }); %> 
+              <tr>
+            </tbody>
+          </table>
+    </div>
+</main>
+</body>
+</html>

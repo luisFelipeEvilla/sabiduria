@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="../cursos" method="POST" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+
+
+
+          <label style="margin-top:30px" for="nombre" class="form-label">Asignatura</label>
+
+          
+          <div class="form-group">
+
+            <select class="form-control" id="id_asignatura" name="id_asignatura">
+
+              
+              <% asignaturas.forEach(asignatura=> {%>
+
+                <option value='<%= asignatura.id %>'> <%= asignatura.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+
+          <label style="margin-top:30px" for="nombre" class="form-label">Docentes</label>
+
+          
+          <div class="form-group">
+
+            <select class="form-control" id="id_docente" name="id_docente">
+
+              
+              <% docentes.forEach(docente=> {%>
+
+                <option value='<%= docente.id %>'> <%= docente.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+
+          <label style="margin-top:30px" for="nombre" class="form-label">Salones</label>
+
+          
+          <div class="form-group">
+
+            <select class="form-control" id="id_salon" name="id_salon">
+
+              
+              <% salones.forEach(salon=> {%>
+
+                <option value='<%= salon.id %>'> <%= salon.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+</main>
+</body>
+</html>

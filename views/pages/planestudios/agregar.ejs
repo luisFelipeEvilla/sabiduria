@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="../planestudios" method="POST" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Año</label>
+
+
+          <input type="number" class="form-control" min="1900" max="2099" step="1" value="2020" id ="ano" name = "ano">
+
+
+          <label style="margin-top:30px" for="nombre" class="form-label">Programa</label>
+
+          
+          <div class="form-group">
+
+            <select class="form-control" id="id_programa_academico" name="id_programa_academico">
+
+              
+              <% programas.forEach(programa=> {%>
+
+                <option value='<%= programa.id %>'><%= programa.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+</main>
+</body>
+</html>

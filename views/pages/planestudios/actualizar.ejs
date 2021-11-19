@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+
+
+
+<main>
+    
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="../ <%= planestudio.planestudio[0].id %> /actualizar" method="POST" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="number" class="form-control" min="1900" max="2099" step="1" id ="ano" name = "ano" value="2020">
+
+          <label for="nombre" style="margin-top:30px" class="form-label">Programa Academico</label>
+          <div class="form-group">
+            
+            <select class="form-control" id="id_programa_academico" name="id_programa_academico">
+
+              
+              <% programas.forEach(programa=> {%>
+
+                <option value='<%= programa.id %>'><%= programa.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+</main>
+</body>
+</html>

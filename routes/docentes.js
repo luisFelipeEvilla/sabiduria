@@ -1,23 +1,97 @@
 const router = require('express').Router();
 const { db } = require('../db');
 const Docente = require('../db/Docentes.js');
+const Departamento = require('../db/Departamentos.js');
+const Curso = require('../db/Cursos.js');
+
 
 router.get('/', async (req, res) => {
     const Docentes = await Docente.getDocentes();
 
-    res.send(Docentes)
+    res.render('pages/docentes/index.ejs',{ Docentes });
+})
+
+router.get('/agregar', async (req, res) => {
+    
+
+    const departamentos = await Departamento.getDepartamentos();
+  
+
+    res.render('pages/docentes/agregar.ejs',{ departamentos });
 })
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
 
-    const DocenteInfo = await Docente.getDocente(id);
+    const docente = await Docente.getDocente(id);
 
-    res.send(DocenteInfo).status(200);
+
+
+    res.render('pages/docentes/detalle.ejs',{ docente});
 
     
 })
+
+router.get('/:id/agregarCurso', async (req, res) => {
+
+    const { id } = req.params;
+
+    const docente = await Docente.getDocente(id);
+    const cursos = await Curso.getCursos();
+
+    console.log(cursos)
+
+    res.render('pages/docentes/agregarCurso.ejs', {
+        docente,
+        cursos
+    })
+});
+
+router.post('/:id/agregarCurso', async (req, res) => {
+    const { id } = req.params;
+    const { id_curso } = req.body;
+
+
+
+    const resultado = await Curso.updateDocente(id_curso, id);
+
+    res.redirect('/docentes/'+id)
+
+
+});
+
+
+router.get('/:id/moverCurso/:id_curso', async (req,res) => {
+    const { id, id_curso} = req.params;
+
+
+    const docente = await Docente.getDocente(id);
+    const docentes = await Docente.getDocentes();
+
+    console.log(docente)
+
+    res.render('pages/docentes/moverCurso.ejs', {docente, docentes, id_curso})
+})
+
+
+router.post('/:id/moverCurso/:id_curso', async (req,res) => {
+    const { id, id_curso} = req.params;
+    const {id_docente} = req.body;
+
+    console.log(id_docente)
+
+
+
+
+    const resultado = await Curso.updateDocente(id_curso, id_docente);
+
+    res.redirect('/docentes/'+id)
+})
+
+
+
+
 
 router.post('/', async (req, res)  => {
 
@@ -25,28 +99,42 @@ router.post('/', async (req, res)  => {
 
     const resultado = await Docente.addDocente(nombre, id_departamento);
 
-    res.send(resultado).status(200)
+    res.redirect("/docentes")
 
 
 })
 
 
-router.delete('/:id', async (req,res) => {
+router.get('/:id/eliminar', async (req,res) => {
     const { id } = req.params;
 
 
     const resultado = await Docente.deleteDocente(id);
 
-    res.send(resultado).status(200);
+    res.redirect("/docentes")
 })
 
-router.put('/:id/actualizar', async (req,res)=> {
+router.post('/:id/actualizar', async (req,res)=> {
     const { id } = req.params;
     const { nombre, id_departamento } = req.body;
 
     const resultado = await Docente.updateDocente(id, nombre, id_departamento);
 
-    res.send(resultado).status(200);
+    res.redirect('/docentes')
+
+})
+
+router.get('/:id/actualizar', async (req,res)=> {
+    const { id } = req.params;
+    
+    console.log(id)
+    const docente = await Docente.getDocente(id);
+    const departamentos = await Departamento.getDepartamentos();
+
+    console.log(docente)
+
+
+    res.render('pages/docentes/actualizar.ejs',{ docente , departamentos, id });
 
 })
 

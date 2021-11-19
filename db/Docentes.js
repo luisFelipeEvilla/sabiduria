@@ -27,9 +27,9 @@ const getDocentes= async () => {
 }
 
 const getDocente = async (id) => {
-    let query = `SELECT Docente.id,
+    let query = `SELECT 
     Asignatura.nombre AS asignatura,
-    Curso.id AS idcurso
+    Curso.id 
     FROM Docente,
     Asignatura,
     Curso
@@ -43,8 +43,20 @@ const getDocente = async (id) => {
                 if (err) {
                     console.log(err.message);
                 }
-                resolve(rows)
+                const cursos = rows
 
+                let query = `SELECT * FROM Docente WHERE id =${id}; `
+                db.all(query, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+    
+                    const docente = rows
+            
+                    resolve({cursos,docente})
+    
+
+                })
 
             })
 
@@ -117,11 +129,34 @@ const updateDocente = async (id, nombre, id_departamento) => {
 
 }
 
+const updateDepartamento = async (id, id_departamento) => {
+    const query = `UPDATE Docente set id_departamento=? WHERE id=?;`;
+    const params = [id_departamento, id]
+    return new Promise ((resolve,reject) => {
+        db.serialize(() =>{
+            db.run(query, params, (err, rows)  =>{
+                if (err) {
+                    console.log(err.message)
+                    reject(console.log('Error actualizando el recurso.'))
+                }
+                resolve(rows)
+                
+            })
+        })
+
+    })
+
+
+}
+
+
+
 module.exports = {
     getDocentes,
     getDocente,
     addDocente,
     deleteDocente,
-    updateDocente
+    updateDocente,
+    updateDepartamento
 
 }

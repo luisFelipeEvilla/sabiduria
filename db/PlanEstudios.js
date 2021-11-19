@@ -2,7 +2,12 @@ const { db } = require('../db');
 
 
 const getPlanEstudios= async () => {
-    const query = `SELECT * FROM PlanDeEstudio`;
+    const query = `SELECT PlanDeEstudio.id,
+    strftime('%Y', PlanDeEstudio.ano) as ano,
+    ProgramaAcademico.nombre as programa
+    FROM PlanDeEstudio,
+    ProgramaAcademico
+    WHERE PlanDeEstudio.id_programa_academico = ProgramaAcademico.id;`;
 
     return new Promise ((resolve, reject)=>{
 
@@ -43,8 +48,19 @@ const getPlanEstudio = async (id) => {
                         }
     
                         const estudiantes = rows
+                    
+                        let query = `SELECT * FROM PlanDeEstudio WHERE id = ${id};`;
+
+                        db.all(query, (err, rows) => {
+                            if (err) {
+                                console.log(err.message);
+                            }
     
-                        resolve({semestres, estudiantes})
+                            const planestudio = rows
+                            resolve({semestres, estudiantes, planestudio})
+                        })
+    
+                        
     
     
                     })

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <h3><%= departamento.departamento[0].nombre %></h3>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Docentes</h4>
+          <a href="<%= departamento.departamento[0].id %>/agregarDocente" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Docente</a>
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Nombre</th>
+                  <th scope="col-4">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contador = 1;
+  
+                      departamento.docentes.forEach(docente => { %>
+                      <tr>
+                          <td><%= contador++ %></td>
+                          <td><%= docente.nombre %></td>                        
+                          <td>
+                            <a href="./<%= departamento.departamento[0].id %>/moverDocente/<%= docente.id %>" class="btn btn-warning">Mover</button>
+                          </td>
+                                                  
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+      </div>
+
+
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Programas Academicos</h4>
+          <a href="<%= departamento.departamento[0].id %>/agregarPrograma" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Programa Academico</a>
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Nombre</th>
+                  <th scope="col-4">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contadord = 1;
+  
+                      departamento.programas.forEach(programa => { %>
+                      <tr>
+                          <td><%= contadord++ %></td>    
+                          <td><%= programa.nombre %></td>                      
+                          <td>
+                            <a href="./<%= departamento.departamento[0].id %>/moverPrograma/<%= programa.id %>" class="btn btn-warning">Mover</button>
+                          </td>
+                                                  
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+      </div>
+      
+      
+    </div>
+</main>
+</body>
+</html>

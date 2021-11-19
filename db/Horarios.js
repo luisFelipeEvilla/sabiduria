@@ -30,6 +30,23 @@ const getHorarios = async () => {
     })
 }
 
+const getHorario = async (id) => {
+    const query = `SELECT * FROM Horario WHERE id = ${id}`;
+
+    return new Promise ((resolve, reject)=>{
+
+        db.serialize(() => {
+            db.all(query, (err, rows) => {
+                if (err) {
+                    console.log(err.message);
+                }
+                resolve(rows)
+            });
+        })
+
+    })
+}
+
 const addHorario = async (dia, hora_inicio, hora_fin, id_curso) => {
 
 
@@ -96,6 +113,7 @@ const updateHorario = async (id, dia, hora_inicio, hora_fin, id_curso) => {
 
 module.exports = {
     getHorarios,
+    getHorario,
     addHorario,
     deleteHorario,
     updateHorario

@@ -38,7 +38,19 @@ const getPrograma = async (id) => {
                 if (err) {
                     console.log(err.message);
                 }
-                resolve(rows)
+                const planestudios = rows
+                let query = `SELECT * From ProgramaAcademico WHERE id =${id} `
+                db.all(query, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+    
+                    const programa = rows
+                    resolve({planestudios, programa})
+    
+
+                })
+
             });
         })
 
@@ -107,12 +119,33 @@ const updatePrograma = async (id, nombre, id_departamento) => {
 
 
 }
+
+
+const updateDepartamento = async (id, id_departamento) => {
+    const query = `UPDATE ProgramaAcademico set id_departamento=? WHERE id=?;`;
+    const params = [id_departamento, id]
+    return new Promise ((resolve,reject) => {
+        db.serialize(() =>{
+            db.run(query, params, (err, rows)  =>{
+                if (err) {
+                    console.log(err.message)
+                    reject(console.log('Error actualizando el recurso.'))
+                }
+                resolve(rows)
+                
+            })
+        })
+
+    })
+
+
+}
 module.exports = {
     getProgramas,
     getPrograma,
     addPrograma,
     deletePrograma,
-    updatePrograma
-
+    updatePrograma,
+    updateDepartamento
 
 }
