@@ -21,7 +21,7 @@ const getPeriodos = async () => {
 
 
 const getPeriodo = async (id) => {
-    const query =`SELECT Estudiante.nombre
+    const query =`SELECT Estudiante.nombre, Estudiante.id
     FROM Periodo,
          Estudiante
    WHERE Periodo.id = Estudiante.id_periodo_ingreso AND 

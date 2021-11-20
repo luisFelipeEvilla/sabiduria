@@ -24,10 +24,16 @@ const getPlanEstudios= async () => {
 }
 
 const getPlanEstudio = async (id) => {
-        const query =`SELECT Semestre.numero
+        const query =`SELECT Semestre.numero,
+        Semestre.id,
+        Asignatura.nombre as asignatura
         FROM PlanDeEstudio,
-        Semestre
+        Semestre,
+        Asignatura,
+        Cursa
         WHERE PlanDeEstudio.id = Semestre.id_plan_de_estudio AND 
+        Asignatura.id = Cursa.id_asignatura AND 
+        Semestre.id = Cursa.id_semestre AND 
         PlanDeEstudio.id = ${id};`;
     
         return new Promise((resolve, reject)=> {

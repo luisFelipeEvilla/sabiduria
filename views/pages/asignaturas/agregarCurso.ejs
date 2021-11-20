@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+
+<body>
+
+  <header>
+    <%- include('../../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="/asignaturas/<%= asignatura.asignatura[0].id %>/agregarCurso" method="POST"
+        enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Selccionar Curso</label>
+
+
+          <div class="form-group">
+
+            <select class="form-control" id="id_curso" name="id_curso">
+
+              
+              <% cursos.forEach(curso=> {%>
+
+                <option value='<%= curso.id %>'>Curso <%=curso.id%>: <%= curso.asignatura %>, Salon <%= curso.salon %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+
+    </div>
+  </main>
+</body>
+
+</html>

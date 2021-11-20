@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <h3>Curso #<%= curso.curso[0].id %></h3>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Estudiantes en este curso</h4>
+        
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Estudiante</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contador = 1;
+  
+                      curso.estudiantes.forEach(estudiante => { %>
+                      <tr>
+                          <td><%= contador++ %></td>
+
+                          <td><%= estudiante.nombre %></td> 
+                         
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+
+
+
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h4>Horarios de este curso</h4>
+                <a href="<%= curso.curso[0].id %>/agregarHorario" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Horario</a>
+              
+              </div>
+                <table class="table">
+                    <thead>
+                        <th scope="col-4">#</th>
+                        <th scope="col-4">Dia</th>
+                        <th scope="col-4">Hora inicio</th>
+                        <th scope="col-4">Hora fin</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                            let contadord = 1;
+        
+                            curso.horarios.forEach(horario => { %>
+                            <tr>
+                                <td><%= contadord++ %></td>
+      
+                                <td><%= horario.dia %></td> 
+                                <td><%= horario.hora_inicio %></td> 
+                                <td><%= horario.hora_fin %></td> 
+                                <td>
+                                    <a href="./<%= curso.curso[0].id %>/eliminarHorario/<%= horario.id %>/" class="btn btn-danger">Eliminar</button>
+                                </td>
+                                
+
+                                                        
+                            </tr>
+                       <% }); %> 
+                    </tbody>
+                  </table>
+      </div>
+      
+      
+    </div>
+</main>
+</body>
+</html>

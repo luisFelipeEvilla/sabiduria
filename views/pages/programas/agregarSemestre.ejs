@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+
+<body>
+
+  <header>
+    <%- include('../../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="../<%= plan.planestudio[0].id %>/agregarSemestre" method="POST"
+        enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+
+          <label for="nombre" class="form-label">Numero de Semestre</label>
+          <input type="number" class="form-control" min="1" max="4" step="1" value="1" id ="numero" name = "numero">
+          <label for="nombre" style="margin-top:30px" class="form-label">Selccionar asignaturas</label>
+
+
+          <div class="form-group">
+
+            <label style="margin-top:30px" for="nombre" class="form-label">Asignatura 1</label>
+            
+            <select class="form-control" id="id_asignatura_1" name="id_asignatura_1">
+
+              
+              <% departamento.asignaturas.forEach(asignatura=> {%>
+
+                <option value='<%= asignatura.id %>'><%= asignatura.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+          <div class="form-group">
+
+            <label style="margin-top:30px" for="nombre" class="form-label">Asignatura 2</label>
+            
+            <select class="form-control" id="id_asignatura_2" name="id_asignatura_2">
+
+              
+              <% departamento.asignaturas.forEach(asignatura=> {%>
+
+                <option value='<%= asignatura.id %>'><%= asignatura.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+          <label style="margin-top:30px" for="nombre" class="form-label">Asignatura 3</label>
+
+          <div class="form-group">
+            
+            <select class="form-control" id="id_asignatura_3" name="id_asignatura_3">
+
+              
+              <% departamento.asignaturas.forEach(asignatura=> { %>
+
+                <option value='<%= asignatura.id %>'><%= asignatura.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+
+    </div>
+  </main>
+</body>
+
+</html>

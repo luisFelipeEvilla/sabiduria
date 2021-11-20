@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <h3><%= periodo.periodo[0].descripcion %></h3>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Nuevos ingresos este periodo</h4>
+        
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Estudiante</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contador = 1;
+  
+                      periodo.nuevos_ingresos.forEach(estudiante => { %>
+                      <tr>
+                          <td><%= contador++ %></td>
+
+                          <td><%= estudiante.nombre %></td> 
+                         
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+
+
+
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h4>Matriculas de este periodo</h4>
+              
+              </div>
+                <table class="table">
+                    <thead>
+                        <th scope="col-4">#</th>
+                        <th scope="col-4">Estudiante</th>
+                        <th scope="col-4">Asignatura</th>
+                        <th scope="col-4">Docente</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                            let contadord = 1;
+        
+                            periodo.cursos.forEach(curso => { %>
+                            <tr>
+                                <td><%= contadord++ %></td>
+      
+                                <td><%= curso.estudiante %></td> 
+                                <td><%= curso.asignatura %></td> 
+                                <td><%= curso.docente %></td> 
+                                
+
+                                                        
+                            </tr>
+                       <% }); %> 
+                    </tbody>
+                  </table>
+      </div>
+      
+      
+    </div>
+</main>
+</body>
+</html>

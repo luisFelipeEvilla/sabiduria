@@ -47,7 +47,6 @@ const getSemestre = async (id) => {
     
 
                 })
-                resolve(semestre)
             });
         })
 
@@ -68,7 +67,18 @@ const addSemestre = async (numero, id_plan_de_estudio) => {
                     console.log(err.message)
                     reject(console.log('Error creando el recurso.'))
                 }
-                resolve(rows)
+                let query = `SELECT * From Semestre WHERE numero =${numero} AND id_plan_de_estudio =${id_plan_de_estudio};`
+                db.all(query, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+    
+                    const semestre = rows
+                    resolve(semestre)
+    
+
+                })
+
                 
             })
         })

@@ -21,7 +21,9 @@
               <thead>
                   <th scope="col-4">#</th>
                   <th scope="col-4">Curso ID</th>
+                  <th scope="col-4">Asignatura</th>
                   <th scope="col-4">Docente</th>
+                  <th scope="col-4">Salon</th>
                   <th scope="col-4">Acciones</th>
                 </tr>
               </thead>
@@ -33,9 +35,11 @@
                       <tr>
                           <td><%= contador++ %></td>
                           <td><%= curso.id %></td>   
-                          <td><%= curso.docente %></td>                      
+                          <td><%= curso.asignatura %></td>
+                          <td><%= curso.docente %></td>
+                          <td><%= curso.salon %></td>                      
                           <td>
-                           
+                            <a href="./<%= asignatura.asignatura[0].id %>/moverCurso/<%= curso.id %>" class="btn btn-warning">Mover</button>
                           </td>
                                                   
                       </tr>
@@ -65,7 +69,7 @@
                           <td><%= contadord++ %></td>
                           <td><%= departamento.nombre %></td>                        
                           <td>
-                           <a href="./<%= asignatura.asignatura[0].id %>/eliminarDepartamento" class="btn btn-danger">Eliminar</button>
+                           <a href="./<%= asignatura.asignatura[0].id %>/eliminarDepartamento/<%= departamento.id %>" class="btn btn-danger">Eliminar</button>
                           </td>
                                                   
                       </tr>

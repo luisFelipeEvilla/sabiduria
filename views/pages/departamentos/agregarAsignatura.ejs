@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+
+<body>
+
+  <header>
+    <%- include('../../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="/departamentos/<%= departamento.departamento[0].id %>/agregarAsignatura" method="POST"
+        enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Selccionar Departamento</label>
+
+
+          <div class="form-group">
+
+            <select class="form-control" id="id_asignatura" name="id_asignatura">
+
+              
+              <% asignaturas.forEach(asignatura=> {%>
+
+                <option value='<%= asignatura.id %>'><%= asignatura.nombre %></option>
+                <% })%>
+
+            </select>
+          </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+
+    </div>
+  </main>
+</body>
+
+</html>

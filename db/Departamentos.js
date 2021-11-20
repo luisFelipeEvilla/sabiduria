@@ -100,7 +100,7 @@ const getDepartamento = async (id) => {
                     console.log(err.message);
                 }
                 const docentes = rows
-                let query = `SELECT a.nombre
+                let query = `SELECT a.nombre, a.id
                     FROM Asignatura a
                     INNER JOIN
                     Contiene c ON (a.id = c.id_asignatura) 

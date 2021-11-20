@@ -3,6 +3,8 @@ const { db } = require('../db');
 const Estudiante = require('../db/Estudiantes.js');
 const PlanEstudio = require('../db/PlanEstudios.js');
 const Periodo = require('../db/Periodos.js');
+const Curso = require('../db/Cursos.js');
+const Matricula = require('../db/Matricula.js');
 
 
 router.get('/', async (req, res) => {
@@ -44,9 +46,9 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
 
-    const PeriodoInfo = await Estudiante.getEstudiante(id);
+    const estudiante = await Estudiante.getEstudiante(id);
 
-    res.send(PeriodoInfo).status(200);
+    res.render('pages/estudiantes/detalle.ejs',{estudiante});
 
     
 })
@@ -59,6 +61,51 @@ router.get('/:id/eliminar', async (req,res) => {
 
     res.redirect("/estudiantes")
 })
+
+router.get('/:id/agregarCurso', async (req, res) => {
+
+    const { id } = req.params;
+
+    const estudiante = await Estudiante.getEstudiante(id);
+    const cursos = await Curso.getCursos();
+    const periodos = await Periodo.getPeriodos();
+
+    console.log(estudiante)
+
+
+
+    res.render('pages/estudiantes/agregarCurso.ejs', {
+        estudiante,
+        cursos, 
+        periodos
+    })
+});
+
+router.post('/:id/agregarCurso/', async (req, res) => {
+    const { id} = req.params;
+    const { id_curso, id_periodo } = req.body;
+
+
+    const resultado = await Matricula.addCursoEstudiante(id_curso, id, id_periodo);
+
+
+    res.redirect('/estudiantes/'+id)
+
+
+});
+
+router.get('/:id/eliminarCurso/:id_curso/:id_periodo', async (req, res) => {
+    const { id, id_curso, id_periodo} = req.params;
+
+
+
+    const resultado = await Matricula.deleteCursoEstudiante(id_curso, id, id_periodo);
+
+
+    res.redirect('/estudiantes/'+id)
+
+
+});
 
 router.post('/', async (req, res)  => {
 

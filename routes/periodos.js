@@ -35,9 +35,10 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
 
-    const PeriodoInfo = await Periodo.getPeriodo(id);
+    const periodo = await Periodo.getPeriodo(id);
+    console.log(periodo)
 
-    res.send(PeriodoInfo).status(200);
+    res.render('pages/periodos/detalle.ejs', {periodo});
 
     
 })
