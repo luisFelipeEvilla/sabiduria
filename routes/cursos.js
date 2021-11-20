@@ -4,6 +4,7 @@ const Curso = require('../db/Cursos.js');
 const Asignatura = require('../db/Asignaturas.js');
 const Docente = require('../db/Docentes.js');
 const Salon = require('../db/Salones.js');
+const Horario = require('../db/Horarios.js');
 
 
 router.get('/', async (req, res) => {
@@ -23,7 +24,7 @@ router.get('/agregar', async (req, res) => {
     const salones = await Salon.getSalones();
 
 
-    console.log(asignaturas);
+
     res.render('pages/cursos/agregar.ejs',{ asignaturas, docentes, salones });
 })
 
@@ -33,9 +34,50 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
 
-    const CursoInfo = await Curso.getCurso(id);
+    const curso = await Curso.getCurso(id);
+    console.log(curso);
 
-    res.send(CursoInfo).status(200);
+    res.render('pages/cursos/detalle.ejs',{ curso });
+
+    
+})
+
+router.get('/:id/agregarHorario', async (req, res) => {
+    const { id } = req.params;
+
+
+    const curso = await Curso.getCurso(id);
+
+
+    res.render('pages/cursos/agregarHorario.ejs',{ curso });
+
+    
+})
+
+router.post('/:id/agregarHorario', async (req, res) => {
+    const { id } = req.params;
+    const {dia, hora_inicio, hora_fin} = req.body
+
+
+
+    const resultado = await Horario.addHorario(dia, hora_inicio, hora_fin, id)
+
+
+    res.redirect('/cursos/'+id);
+
+    
+})
+
+router.get('/:id/eliminarHorario/:id_horario', async (req, res) => {
+    const { id, id_horario } = req.params;
+   
+
+
+
+    const resultado = await Horario.deleteHorario(id_horario)
+
+
+    res.redirect('/cursos/'+id);
 
     
 })

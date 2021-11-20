@@ -20,12 +20,16 @@ const getAsignaturas = async () => {
 
 const getAsignatura = async (id) => {
     let query = `SELECT Curso.id,
-    Docente.nombre as docente
+    Docente.nombre as docente,
+    Asignatura.nombre as asignatura,
+    Salon.nombre as salon
     FROM Asignatura,
     Curso,
-    Docente
+    Docente,
+    Salon
     WHERE Asignatura.id = Curso.id_asignatura AND 
     Curso.id_docente = Docente.id AND 
+    Curso.id_salon = Salon.id AND
     Asignatura.id = ${id};`;
 
     return new Promise((resolve, reject)=> {
@@ -35,7 +39,7 @@ const getAsignatura = async (id) => {
                     console.log(err.message);
                 }
                 const cursos = rows
-                let query = `SELECT Departamento.nombre
+                let query = `SELECT Departamento.nombre, Departamento.id
                      FROM Asignatura,
                      Contiene,
                      Departamento

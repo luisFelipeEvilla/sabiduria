@@ -2,6 +2,9 @@ const router = require('express').Router();
 const { db } = require('../db');
 const Programa = require('../db/Programas.js');
 const Departamento = require('../db/Departamentos.js');
+const PlanEstudio = require('../db/PlanEstudios.js');
+const Semestre = require('../db/Semestres.js');
+const Cursa = require('../db/Cursa.js');
 
 
 router.get('/', async (req, res) => {
@@ -50,9 +53,9 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
 
-    const ProgramaInfo = await Programa.getPrograma(id);
+    const programa = await Programa.getPrograma(id);
 
-    res.send(ProgramaInfo).status(200);
+    res.render('pages/programas/detalle.ejs',{ programa });
 
     
 })
@@ -71,6 +74,87 @@ router.post('/', async (req, res)  => {
 
 })
 
+router.get('/:id/agregarPlan', async (req, res)  => {
+    const { id } = req.params;
+
+
+
+  
+
+    const programa = await Programa.getPrograma(id);
+
+    res.render('pages/programas/agregarPlan.ejs',{ programa });
+
+
+})
+
+router.post('/:id/agregarPlan', async (req, res)  => {
+    const { id } = req.params;
+
+    let {ano} = req.body
+
+    ano = ano.concat("-01-01")
+
+    const resultado = await PlanEstudio.addPlanEstudio(ano, id);
+
+    res.redirect('/programas/'+id)
+
+
+})
+
+
+
+router.get('/:id/planestudios/:id_planestudio/eliminar', async (req,res) => {
+    const { id, id_planestudio } = req.params;
+
+
+    const resultado = await PlanEstudio.deletePlanEstudio(id_planestudio);
+
+    res.redirect('/programas/'+id)
+})
+
+router.get('/:id/planestudios/:id_planestudio/', async (req,res) => {
+    const { id, id_planestudio } = req.params;
+
+
+    const plan = await PlanEstudio.getPlanEstudio(id_planestudio);
+
+
+    res.render('pages/programas/detallePlan.ejs',{ plan, id });
+})
+
+
+router.get('/:id/planestudios/:id_planestudio/agregarSemestre', async (req,res) => {
+    const { id, id_planestudio } = req.params;
+
+    // TODO: Agregar semestre, cambiar archivo agregarSemestre.ejs
+    const programa = await Programa.getPrograma(id);
+
+    const plan = await PlanEstudio.getPlanEstudio(id_planestudio);
+    const departamento = await Departamento.getDepartamento(programa.programa[0].id_departamento)
+
+
+
+   res.render('pages/programas/agregarSemestre.ejs',{ programa, id_planestudio, departamento, plan });
+})
+
+router.post('/:id/planestudios/:id_planestudio/agregarSemestre', async (req,res) => {
+    const { id, id_planestudio } = req.params;
+    const {numero, id_asignatura_1, id_asignatura_2, id_asignatura_3} = req.body
+    console.log(id_asignatura_1);
+    console.log(id_asignatura_2);
+    console.log(id_asignatura_3);
+
+    const semestre = await Semestre.addSemestre(numero, id_planestudio);
+    console.log(semestre[0].id)
+
+    await Cursa.addAsignaturaSemestre(semestre[0].id, id_asignatura_1);
+    await Cursa.addAsignaturaSemestre(semestre[0].id, id_asignatura_2);
+    await Cursa.addAsignaturaSemestre(semestre[0].id, id_asignatura_3);
+    // TODO: ELIMINAR SEMESTRES, ELIMINAR PLANES DE ESTUDIO 
+
+   res.redirect('/programas/'+id+'/planestudios/'+id_planestudio);
+})
 
 router.get('/:id/eliminar', async (req,res) => {
     const { id } = req.params;

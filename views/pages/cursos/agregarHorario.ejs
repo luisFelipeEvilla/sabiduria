@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px; max-width: 500px;">
+      <form action="/cursos/<%= curso.curso[0].id %>/agregarHorario" method="POST" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Dia</label>
+          <input type="text" class="form-control" id="dia" name="dia">
+
+          <label for="nombre" class="form-label">Hora Inicio</label>
+          <input type="text" class="form-control" id="hora_inicio" name="hora_inicio">
+
+          <label for="nombre" class="form-label">Hora Fin</label>
+          <input type="text" class="form-control" id="hora_fin" name="hora_fin">
+
+
+          
+
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+</main>
+</body>
+</html>

@@ -11,20 +11,20 @@
   
     <main>
       <div class="container" style="padding-top: 20px; max-width: 500px;">
-        <form action="/docentes/<%= docente.docente[0].id %>/moverCurso/<%= id_curso %>" method="POST"
+        <form action="/asignaturas/<%= asignatura.asignatura[0].id %>/moverCurso/<%= id_curso %>" method="POST"
           enctype="application/x-www-form-urlencoded">
           <div class="mb-3">
-            <label for="nombre" class="form-label">Selccionar docente</label>
+            <label for="nombre" class="form-label">Selccionar asignatura</label>
   
   
             <div class="form-group">
   
-              <select class="form-control" id="id_docente" name="id_docente">
+              <select class="form-control" id="id_asignatura" name="id_asignatura">
   
                 
-                <% docentes.forEach(docente=> {%>
+                <% asignaturas.forEach(asignatura=> {%>
   
-                  <option value='<%= docente.id %>'><%= docente.nombre %></option>
+                  <option value='<%= asignatura.id %>'><%= asignatura.nombre %></option>
                   <% })%>
   
               </select>

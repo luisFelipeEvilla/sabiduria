@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container" style="padding-top: 20px;">
+      <h3>Salon <%= salon.salon[0].nombre %></h3>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h4>Cursos con clases en este salon</h4>
+        
+        </div>
+          <table class="table">
+              <thead>
+                  <th scope="col-4">#</th>
+                  <th scope="col-4">Asignatura</th>
+                  <th scope="col-4">Docente</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                  <% 
+                      let contador = 1;
+  
+                      salon.cursos.forEach(curso => { %>
+                      <tr>
+                          <td><%= contador++ %></td>
+
+                          <td><%= curso.asignatura %></td> 
+                          <td><%= curso.docente %></td> 
+                         
+                      </tr>
+                 <% }); %> 
+              </tbody>
+            </table>
+
+
+
+
+      </div>
+      
+      
+    </div>
+</main>
+</body>
+</html>

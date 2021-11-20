@@ -40,7 +40,7 @@ router.get('/:id/agregarCurso', async (req, res) => {
     const docente = await Docente.getDocente(id);
     const cursos = await Curso.getCursos();
 
-    console.log(cursos)
+
 
     res.render('pages/docentes/agregarCurso.ejs', {
         docente,
@@ -69,7 +69,7 @@ router.get('/:id/moverCurso/:id_curso', async (req,res) => {
     const docente = await Docente.getDocente(id);
     const docentes = await Docente.getDocentes();
 
-    console.log(docente)
+
 
     res.render('pages/docentes/moverCurso.ejs', {docente, docentes, id_curso})
 })
@@ -79,7 +79,7 @@ router.post('/:id/moverCurso/:id_curso', async (req,res) => {
     const { id, id_curso} = req.params;
     const {id_docente} = req.body;
 
-    console.log(id_docente)
+
 
 
 
@@ -127,11 +127,11 @@ router.post('/:id/actualizar', async (req,res)=> {
 router.get('/:id/actualizar', async (req,res)=> {
     const { id } = req.params;
     
-    console.log(id)
+ 
     const docente = await Docente.getDocente(id);
     const departamentos = await Departamento.getDepartamentos();
 
-    console.log(docente)
+
 
 
     res.render('pages/docentes/actualizar.ejs',{ docente , departamentos, id });

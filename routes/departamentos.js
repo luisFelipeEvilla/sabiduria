@@ -3,6 +3,8 @@ const { db } = require('../db');
 const Departamento = require('../db/Departamentos.js');
 const Docente = require('../db/Docentes.js');
 const Programa =require('../db/Programas.js');
+const Asignatura =require('../db/Asignaturas.js');
+const Contiene =require('../db/Contiene.js');
 
 router.get('/', async (req, res) => {
     const Departamentos = await Departamento.getDepartamentos();
@@ -82,8 +84,8 @@ router.get('/:id', async (req, res) => {
     const departamento = await Departamento.getDepartamento(id);
 
 
-
-
+    
+    console.log(departamento)
     res.render('pages/departamentos/detalle.ejs',{ departamento });
 
 })
@@ -95,6 +97,7 @@ router.post('/', async (req, res)  => {
     const { nombre } = req.body
 
     const resultado = await Departamento.addDepartamento(nombre);
+
 
     res.redirect('/departamentos')
 
@@ -183,6 +186,44 @@ router.get('/:id/actualizar', async (req,res)=> {
     res.render('pages/departamentos/actualizar.ejs',{ departamento });
 
 })
+
+router.get("/:id/eliminarAsignatura/:id_asignatura", async (req, res) => {
+
+    const { id, id_asignatura } = req.params;
+
+    const resultado = await Contiene.deleteAsignaturaDepartamento(id, id_asignatura);
+
+    res.redirect("/departamentos/"+id)
+
+});
+
+router.get('/:id/agregarAsignatura', async (req, res) => {
+
+    const { id } = req.params;
+
+    const departamento = await Departamento.getDepartamento(id);
+    const asignaturas = await Asignatura.getAsignaturas();
+
+    res.render('pages/departamentos/agregarAsignatura.ejs', {
+        asignaturas,
+        departamento
+    })
+});
+
+
+
+router.post('/:id/agregarAsignatura', async (req, res) => {
+
+    const { id } = req.params;
+
+    const { id_asignatura } = req.body;
+
+
+
+    const resultado = await Contiene.addAsignaturaDepartamento(id, id_asignatura);
+
+    res.redirect("/departamentos/"+id)
+});
 
 
 module.exports = router;

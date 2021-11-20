@@ -32,9 +32,9 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
 
-    const SalonInfo = await Salon.getSalon(id);
-
-    res.send(SalonInfo).status(200);
+    const salon = await Salon.getSalon(id);
+    console.log(salon)
+    res.render('pages/salones/detalle.ejs',{ salon });
 
     
 })

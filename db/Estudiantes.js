@@ -28,7 +28,7 @@ const getEstudiantes = async () => {
 }
 
 const getEstudiante = async (id) => {
-    const query = `SELECT Estudiante.id, Asignatura.nombre AS asignatura,
+    const query = `SELECT Curso.id, Matricula.id_periodo, Asignatura.nombre AS asignatura,
        Docente.nombre AS docente,
        Salon.nombre AS salon
         FROM Estudiante,
@@ -52,7 +52,7 @@ const getEstudiante = async (id) => {
                     console.log(err.message);
                 }
 
-                const asignaturas = rows
+                const cursos = rows
                 let query = `SELECT * From Estudiante WHERE id =${id} `
                 db.all(query, (err, rows) => {
                     if (err) {
@@ -60,7 +60,7 @@ const getEstudiante = async (id) => {
                     }
     
                     const estudiante = rows
-                    resolve({asignaturas, estudiante})
+                    resolve({cursos, estudiante})
     
 
                 })

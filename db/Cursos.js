@@ -43,7 +43,7 @@ const getCurso = async (id) => {
                     console.log(err.message);
                 }
                 const estudiantes = rows
-                let query = `SELECT Horario.dia,
+                let query = `SELECT Horario.id, Horario.dia, 
                 Horario.hora_inicio,
                 Horario.hora_fin
                 FROM Curso,
@@ -161,11 +161,34 @@ const updateDocente = async (id, id_docente) => {
 
 }
 
+const updateAsignatura = async (id, id_asignatura) => {
+    const query = `UPDATE Curso set id_asignatura=? WHERE id=?;`;
+    const params = [id_asignatura, id]
+    return new Promise ((resolve,reject) => {
+        db.serialize(() =>{
+            db.run(query, params, (err, rows)  =>{
+                if (err) {
+                    console.log(err.message)
+                    reject(console.log('Error actualizando el recurso.'))
+                }
+                resolve(rows)
+                
+            })
+        })
+
+    })
+
+
+}
+
+
+
 module.exports = {
     getCursos,
     getCurso,
     addCurso,
     deleteCurso,
     updateCurso,
-    updateDocente
+    updateDocente,
+    updateAsignatura,
 }
