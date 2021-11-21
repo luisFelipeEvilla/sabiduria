@@ -101,13 +101,27 @@ router.get('/:id/eliminar', async (req,res) => {
     res.redirect("/cursos")
 })
 
-router.put('/:id/actualizar', async (req,res)=> {
+
+router.get('/:id/actualizar', async (req,res) => {
+    const { id } = req.params;
+
+    const curso = await Curso.getCurso(id)
+
+
+    const asignaturas = await Asignatura.getAsignaturas();
+    const docentes = await Docente.getDocentes();
+    const salones = await Salon.getSalones();
+
+    res.render('pages/cursos/actualizar.ejs',{ asignaturas, docentes, salones, curso });
+})
+
+router.post('/:id/actualizar', async (req,res)=> {
     const { id } = req.params;
     const { id_asignatura, id_docente, id_salon } = req.body
 
     const resultado = await Curso.updateCurso(id, id_asignatura, id_docente, id_salon );
 
-    res.send(resultado).status(200);
+    res.redirect('/cursos')
 
 })
 

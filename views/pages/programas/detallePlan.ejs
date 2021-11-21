@@ -18,7 +18,10 @@
             <div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                     <h4>Planes de Estudio</h4>
-                    <a href=" <%= plan.planestudio[0].id %>/agregarSemestre" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Semestre</a>
+                    <% if (plan.semestres.length < 12) { %>
+                        <a href=" <%= plan.planestudio[0].id %>/agregarSemestre" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Semestre</a>
+                        <% }%>
+                    
                 </div>
                 <table class="table">
                     <thead>
