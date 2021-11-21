@@ -13,10 +13,6 @@ const horarios = require('./routes/horarios');
 const periodos = require('./routes/periodos');
 const admin = require('./routes/admin');
 
-
-
-
-
 const app = express();
 
 app.set('view engine','ejs');
