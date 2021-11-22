@@ -12,6 +12,7 @@ const cursos = require('./routes/cursos');
 const horarios = require('./routes/horarios');
 const periodos = require('./routes/periodos');
 const admin = require('./routes/admin');
+const homeDocente = require('./routes/home')
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/cursos', cursos);
 app.use('/horarios', horarios);
 app.use('/periodos', periodos);
 app.use('/admin', admin);
+app.use('/docente', homeDocente )
 
 const PORT = 3000;
 

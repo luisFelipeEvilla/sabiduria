@@ -4,10 +4,6 @@ const Semestre = require('../db/Semestres.js');
 
 
 router.get('/', async (req, res) => {
-
-
-
-
     res.render('pages/admin.ejs')
 })
 
