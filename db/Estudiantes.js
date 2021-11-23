@@ -71,14 +71,15 @@ const getEstudiante = async (id) => {
     })
 }
 
-const addEstudiante = async (nombre, id_plan_de_estudio, id_periodo_ingreso) => {
+const addEstudiante = async (nombre, id_plan_de_estudio, id_periodo_ingreso, usuario, contrasena) => {
 
 
     return new Promise((resolve, reject)=> {
 
-        let query = 'INSERT INTO Estudiante (nombre, id_plan_de_estudio, id_periodo_ingreso) values (?,?,?);'
+        let query = `INSERT INTO Estudiante (nombre, id_plan_de_estudio, id_periodo_ingreso,
+            usuario, contrasena, rol) values (?,?,?, ?, ?, ?);`
 
-        const params = [nombre, id_plan_de_estudio, id_periodo_ingreso]
+        const params = [nombre, id_plan_de_estudio, id_periodo_ingreso, usuario, contrasena, 'e']
         
 
         db.serialize(() =>{
