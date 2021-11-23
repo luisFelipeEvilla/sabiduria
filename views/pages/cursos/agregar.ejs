@@ -14,16 +14,12 @@
       <form action="../cursos" method="POST" enctype="application/x-www-form-urlencoded">
         <div class="mb-3">
 
-
-
           <label style="margin-top:30px" for="nombre" class="form-label">Asignatura</label>
-
           
           <div class="form-group">
 
             <select class="form-control" id="id_asignatura" name="id_asignatura">
 
-              
               <% asignaturas.forEach(asignatura=> {%>
 
                 <option value='<%= asignatura.id %>'> <%= asignatura.nombre %></option>

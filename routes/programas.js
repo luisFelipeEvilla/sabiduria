@@ -132,21 +132,25 @@ router.get('/:id/planestudios/:id_planestudio/agregarSemestre', async (req,res) 
 
     const plan = await PlanEstudio.getPlanEstudio(id_planestudio);
     const departamento = await Departamento.getDepartamento(programa.programa[0].id_departamento)
+    const asignaturas = await PlanEstudio.getAsignaturasDisponibles(id_planestudio)
 
+    let semestresDisponibles = [1, 2, 3, 4]
+    const semestres = plan.semestres.forEach(asignatura => {
+        indice = semestresDisponibles.indexOf(asignatura.numero);
+        if (indice != -1) {
+            semestresDisponibles.splice(indice, 1);
+        }
+    })
 
-
-   res.render('pages/programas/agregarSemestre.ejs',{ programa, id_planestudio, departamento, plan });
+   res.render('pages/programas/agregarSemestre.ejs',{ programa, id_planestudio,
+    departamento, plan, asignaturas, semestresDisponibles});
 })
 
 router.post('/:id/planestudios/:id_planestudio/agregarSemestre', async (req,res) => {
     const { id, id_planestudio } = req.params;
     const {numero, id_asignatura_1, id_asignatura_2, id_asignatura_3} = req.body
-    console.log(id_asignatura_1);
-    console.log(id_asignatura_2);
-    console.log(id_asignatura_3);
 
     const semestre = await Semestre.addSemestre(numero, id_planestudio);
-    console.log(semestre[0].id)
 
     await Cursa.addAsignaturaSemestre(semestre[0].id, id_asignatura_1);
     await Cursa.addAsignaturaSemestre(semestre[0].id, id_asignatura_2);

@@ -53,12 +53,9 @@ router.get('/:id/actualizar', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
-
     const PlanEstudioInfo = await PlanEstudio.getPlanEstudio(id);
 
     res.send(PlanEstudioInfo).status(200);
-
-    
 })
 
 

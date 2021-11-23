@@ -132,8 +132,25 @@ const updateEstudiante = async (id, nombre, id_plan_de_estudio, id_periodo_ingre
         })
 
     })
+}
 
+const getCodigoSalon = (id, idSesion) => { 
+    return new Promise((resolve, reject) => {
+        const query = `SELECT * FROM Asistencia 
+        WHERE id_estudiante = ?
+        AND id_sesion = ?`
+        
+        const params = [id, idSesion];
 
+        db.get(query, params, (err, rows) => {
+            if (err) {
+                console.log(err.message);
+                reject(console.log('Error Obteniendo el código de asistencia.'))
+            }   
+
+            resolve(rows);
+        })
+    })
 }
 
 module.exports = {
@@ -141,6 +158,7 @@ module.exports = {
     getEstudiante,
     addEstudiante,
     deleteEstudiante,
-    updateEstudiante
+    updateEstudiante,
+    getCodigoSalon
 
 }

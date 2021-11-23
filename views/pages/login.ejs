@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+      </head>
+      <body>
+<body>
+    <div style="display: flex; align-items: center; min-height: 100vh;">
+        <div class="card" style="width: 450px; padding: 20px 0 20px 0; margin: auto;">
+
+            <div class="card-boddy">
+                <div class="container">
+                    <form action="/login" method="POST" enctype="application/x-www-form-urlencoded">
+                        <div class="form-group">
+                            <label for="usuario">Nombre De Usuario</label>
+                            <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="usuarioHelp">
+                            <small id="usuarioHelp" class="form-text text-muted">Ingresa tu nombre de usuario</small>
+                            <% if (errorUsuario) { %>
+                                <div id="slsl" class="invalid-feedback" style="display: block;">El usuario ingresado no existe</div>
+                            <%} %>
+                        </div>
+                        <div class="form-group">
+                            <label for="contrasena">Cotraseña</label>
+                            <input type="password" class="form-control" id="contrasena" name="contrasena" aria-activedescendant="contranseHelp">
+                            <small id="contrasenaHelp" class="form-text text-muted">Ingresa tu contraseña</small>
+                            <% if (errorContrasena) { %>
+                                <div id="slsl" class="invalid-feedback" style="display: block;">La contraseña es incorrecta</div>
+                            <%} %>
+                        </div>
+                        <button type="submit" class="btn btn-success">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div> 
+    </div> 
+</body>
+</html>
