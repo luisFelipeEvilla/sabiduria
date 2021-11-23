@@ -71,14 +71,15 @@ const getEstudiante = async (id) => {
     })
 }
 
-const addEstudiante = async (nombre, id_plan_de_estudio, id_periodo_ingreso) => {
+const addEstudiante = async (nombre, id_plan_de_estudio, id_periodo_ingreso, usuario, contrasena) => {
 
 
     return new Promise((resolve, reject)=> {
 
-        let query = 'INSERT INTO Estudiante (nombre, id_plan_de_estudio, id_periodo_ingreso) values (?,?,?);'
+        let query = `INSERT INTO Estudiante (nombre, id_plan_de_estudio, id_periodo_ingreso,
+            usuario, contrasena, rol) values (?,?,?, ?, ?, ?);`
 
-        const params = [nombre, id_plan_de_estudio, id_periodo_ingreso]
+        const params = [nombre, id_plan_de_estudio, id_periodo_ingreso, usuario, contrasena, 'e']
         
 
         db.serialize(() =>{
@@ -153,12 +154,35 @@ const getCodigoSalon = (id, idSesion) => {
     })
 }
 
+const getCredenciales = async (usuario) => {
+    const query = `SELECT 
+        e.usuario,
+        e.contrasena,
+        e.rol
+    FROM Estudiante e
+    WHERE
+    e.usuario = ?;`;
+    const params = [usuario]
+
+    return new Promise((resolve, reject) => {
+        db.serialize(() => {
+            db.get(query, params, (err, rows) => {
+                if (err) {
+                    console.log(err.message);
+                }
+                
+                resolve(rows);
+            })
+        })
+    })
+}
+
 module.exports = {
     getEstudiantes,
     getEstudiante,
     addEstudiante,
     deleteEstudiante,
     updateEstudiante,
-    getCodigoSalon
-
+    getCodigoSalon,
+    getCredenciales
 }
