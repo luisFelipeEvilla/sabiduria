@@ -3,7 +3,7 @@ const { comparePassword } = require('../utils/encriptacion');
 const jwt = require('jsonwebtoken');
 const url = require('url');    
 const Docente = require('../db/Docentes');
-
+const Estudiante = require('../db/Estudiantes');
 const { jwt_secret_key } = require('../config');
 
 router.get('/', (req, res) => {
@@ -23,7 +23,11 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
     const { usuario, contrasena } = req.body;
     
-    const resultado = await Docente.getCredenciales(usuario);
+    let resultado = await Docente.getCredenciales(usuario);
+
+    if (resultado == null) {
+        resultado = await Estudiante.getCredenciales(usuario);
+    }
 
     if (resultado == null) {
         res.redirect(url.format({
@@ -49,7 +53,6 @@ router.post('/', async (req, res) => {
                 }
             )
             res.cookie('jwt', token, {secure: true, httpOnly: true})
-
             if (resultado.rol == 'a') {
                 res.redirect('/admin');
             } else {

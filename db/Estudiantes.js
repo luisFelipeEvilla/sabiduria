@@ -154,12 +154,35 @@ const getCodigoSalon = (id, idSesion) => {
     })
 }
 
+const getCredenciales = async (usuario) => {
+    const query = `SELECT 
+        e.usuario,
+        e.contrasena,
+        e.rol
+    FROM Estudiante e
+    WHERE
+    e.usuario = ?;`;
+    const params = [usuario]
+
+    return new Promise((resolve, reject) => {
+        db.serialize(() => {
+            db.get(query, params, (err, rows) => {
+                if (err) {
+                    console.log(err.message);
+                }
+                
+                resolve(rows);
+            })
+        })
+    })
+}
+
 module.exports = {
     getEstudiantes,
     getEstudiante,
     addEstudiante,
     deleteEstudiante,
     updateEstudiante,
-    getCodigoSalon
-
+    getCodigoSalon,
+    getCredenciales
 }
