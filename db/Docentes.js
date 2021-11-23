@@ -61,9 +61,30 @@ const getDocente = async (id) => {
     })
 }
 
+const getCredenciales = async (usuario) => {
+    const query = `SELECT 
+        d.usuario,
+        d.contrasena,
+        d.rol
+    FROM Docente d
+    WHERE
+    d.usuario = ?;`;
+    const params = [usuario]
+
+    return new Promise((resolve, reject) => {
+        db.serialize(() => {
+            db.get(query, params, (err, rows) => {
+                if (err) {
+                    console.log(err.message);
+                }
+                
+                resolve(rows);
+            })
+        })
+    })
+}
+
 const addDocente = async (nombre, id_departamento) => {
-
-
     return new Promise((resolve, reject) => {
 
         let query = 'INSERT INTO Docente (nombre, id_departamento) VALUES(?, ?);'
@@ -190,6 +211,7 @@ const createCodes = async (id, id_curso) => {
 module.exports = {
     getDocentes,
     getDocente,
+    getCredenciales,
     addDocente,
     deleteDocente,
     updateDocente,
