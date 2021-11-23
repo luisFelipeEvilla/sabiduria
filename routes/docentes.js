@@ -3,7 +3,7 @@ const { db } = require('../db');
 const Docente = require('../db/Docentes.js');
 const Departamento = require('../db/Departamentos.js');
 const Curso = require('../db/Cursos.js');
-
+const { cryptPassword } = require('../utils/encriptacion');
 
 router.get('/', async (req, res) => {
     const Docentes = await Docente.getDocentes();
@@ -104,9 +104,11 @@ router.post('/codigo/:id/:curso', async (req, res) => {
 });
 
 router.post('/', async (req, res)  => {
-    const { nombre, id_departamento } = req.body
+    const { nombre, id_departamento, usuario, contrasena } = req.body
+    
+    const contrasenaEncriptada = cryptPassword(contrasena);
 
-    const resultado = await Docente.addDocente(nombre, id_departamento);
+    const resultado = await Docente.addDocente(nombre, id_departamento, usuario, contrasenaEncriptada);
 
     res.redirect("/docentes")
 })

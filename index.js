@@ -16,7 +16,7 @@ const periodos = require('./routes/periodos');
 const admin = require('./routes/admin');
 const homeDocente = require('./routes/home');
 const login = require('./routes/login');
-const auth = require('./middlewares/auth');
+const { auth, isAdmin } = require('./middlewares/auth');
 
 const app = express();
 
@@ -37,9 +37,9 @@ app.use('/salones', auth, salones);
 app.use('/cursos', auth, cursos);
 app.use('/horarios', auth, horarios);
 app.use('/periodos', auth, periodos);
-app.use('/admin', auth, admin);
-app.use('/docente', auth, homeDocente )
-app.use('/login', login)
+app.use('/admin', auth, isAdmin, admin);
+app.use('/login', login);
+app.use('/', auth, homeDocente );
 
 const PORT = 3000;
 

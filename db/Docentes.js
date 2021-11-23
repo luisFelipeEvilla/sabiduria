@@ -84,11 +84,11 @@ const getCredenciales = async (usuario) => {
     })
 }
 
-const addDocente = async (nombre, id_departamento) => {
+const addDocente = async (nombre, id_departamento, usuario, contrasena, rol) => {
     return new Promise((resolve, reject) => {
 
-        let query = 'INSERT INTO Docente (nombre, id_departamento) VALUES(?, ?);'
-        const params = [nombre, id_departamento]
+        let query = 'INSERT INTO Docente (nombre, id_departamento, usuario, contrasena, rol) VALUES(?, ?, ?, ?, ?);'
+        const params = [nombre, id_departamento, usuario, contrasena, 'd']
 
         db.serialize(() => {
             db.run(query, params, (err, rows) => {
