@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('../../partials/header'); %>
+</header>
+
+<main>
+    <div class="container">
+        <h5>Tus cursos</h5>
+        <div class="row justify-content-around align-items-center" style="padding-top: 20px">
+            <% 
+                docente.cursos.forEach(curso => { %>
+                    <div class="card col-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= curso.asignatura %></h5>
+                            <p class="card-text"> <b>Salón:</b> <%= curso.salon %> </p>
+                            <a href="/cursos/<%= curso.id%>" class="card-link">Ver detalle del curso</a>
+                            <a href="/cursos/<%= curso.id%>/asistencia" class="btn btn-primary">Ver asistencia</a>
+                        </div>
+                    </div>
+            <%  }) %>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
