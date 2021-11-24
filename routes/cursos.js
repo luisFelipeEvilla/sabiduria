@@ -39,7 +39,6 @@ router.get('/:id/asistencia', async (req, res) => {
     const codigoDocente = await Curso.getCodigoDocente(id);
     const codigoSalon = await Estudiante.getCodigoSalon(1 ,codigoDocente.id)
 
-    console.log(codigoSalon);
     const expiracion = new Date(codigoDocente.expiracion);
 
     const diffMs = expiracion - new Date(); // diferencia en milisegundos 

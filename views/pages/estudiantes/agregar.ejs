@@ -13,41 +13,36 @@
     <div class="container" style="padding-top: 20px; max-width: 500px;">
       <form action="../estudiantes" method="POST" enctype="application/x-www-form-urlencoded">
         <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre</label>
-
-
-          <input type="text" class="form-control" id ="nombre" name = "nombre">
-
-
-          <label style="margin-top:30px" for="nombre" class="form-label">Programa</label>
-
+          <div class="form-group">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id ="nombre" name = "nombre">
+          </div>
           
           <div class="form-group">
+            <label for="usuario" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="usuario" name="usuario">
+          </div>
+            
+          <div class="form-group">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contrasena" name="contrasena">
+          </div>
 
+          <div class="form-group">
+            <label for="id_plan_de_estudio" class="form-label">Programa</label>
             <select class="form-control" id="id_plan_de_estudio" name="id_plan_de_estudio">
-
-              
               <% planestudios.forEach(plan=> {%>
-
                 <option value='<%= plan.id %>'> Plan Estudios #<%= plan.id %></option>
                 <% })%>
-
             </select>
           </div>
 
-
-          <label style="margin-top:30px" for="nombre" class="form-label">Periodo Ingreso</label>
-
           <div class="form-group">
-
+            <label for="id_periodo_ingreso" class="form-label">Periodo de Ingreso</label>
             <select class="form-control" id="id_periodo_ingreso" name="id_periodo_ingreso">
-
-              
               <% periodos.forEach(periodo=> {%>
-
                 <option value='<%= periodo.id %>'> <%= periodo.descripcion %></option>
                 <% })%>
-
             </select>
           </div>
 
