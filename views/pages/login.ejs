@@ -3,16 +3,20 @@
     <head>
         <%- include('../partials/head'); %>
       </head>
+      
+    <link rel="stylesheet" href="css/style.css" />
       <body>
 <body>
-    <div style="display: flex; align-items: center; min-height: 100vh;">
-        <div class="card" style="width: 450px; padding: 20px 0 20px 0; margin: auto;">
-
+    
+    <div style="display: flex; flex-direction: column; align-items: center; min-height: 100vh; background-image: url('https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/bglogin.jpg'); background-repeat: no-repeat; background-size: cover; justify-content: center;">     
+        <img src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/sabiduria.png" alt="logo Sabiduria" style="padding-bottom: 20px;">
+        <div class="card" style="width: 450px; padding: 20px 0 20px 0; margin-left: auto; margin-right: auto;">
+            
             <div class="card-boddy">
-                <div class="container">
-                    <form action="/login" method="POST" enctype="application/x-www-form-urlencoded">
+                <div class="container" >
+                    <form action="/login" method="POST" enctype="application/x-www-form-urlencoded" style=" display: flex; flex-direction: column;">
                         <div class="form-group">
-                            <label for="usuario">Nombre De Usuario</label>
+                            <label for="usuario">Nombre de Usuario</label>
                             <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="usuarioHelp">
                             <small id="usuarioHelp" class="form-text text-muted">Ingresa tu nombre de usuario</small>
                             <% if (errorUsuario) { %>
@@ -20,14 +24,14 @@
                             <%} %>
                         </div>
                         <div class="form-group">
-                            <label for="contrasena">Cotraseña</label>
+                            <label for="contrasena">Contraseña</label>
                             <input type="password" class="form-control" id="contrasena" name="contrasena" aria-activedescendant="contranseHelp">
                             <small id="contrasenaHelp" class="form-text text-muted">Ingresa tu contraseña</small>
                             <% if (errorContrasena) { %>
                                 <div id="slsl" class="invalid-feedback" style="display: block;">La contraseña es incorrecta</div>
                             <%} %>
                         </div>
-                        <button type="submit" class="btn btn-success">Ingresar</button>
+                        <button type="submit" class="btn btn-success" style="width: 100px; align-self: flex-end;">Ingresar</button>
                     </form>
                 </div>
             </div>
