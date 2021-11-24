@@ -156,6 +156,7 @@ const getCodigoSalon = (id, idSesion) => {
 
 const getCredenciales = async (usuario) => {
     const query = `SELECT 
+        e.id,
         e.usuario,
         e.contrasena,
         e.rol
@@ -177,6 +178,90 @@ const getCredenciales = async (usuario) => {
     })
 }
 
+const setAsistencia = async (id, codigo_salon) => {
+    const query = `UPDATE Asistencia
+        SET asistencia = ?
+        WHERE id = ? AND 
+        codigo_salon = ?;`;
+    //const params = [nombre, id_plan_de_estudio, id_periodo_ingreso, id]
+
+    const asistencia = await getAsistencia(id, codigo_salon);
+
+    
+    const tiempoExp = await getExpiracion(asistencia[0].id_sesion);
+
+    //TODO: PROBAR ESTA COSA
+
+    const expiracion = new Date(tiempoExp);
+
+    const diffMs = expiracion - new Date(); // diferencia en milisegundos 
+    const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // diferencia en minutos
+
+    const retraso = diffMins <= 10 ? true : false;  // si han pasado más de 20 min se expiro
+
+    if (retraso) {
+        const params = ['-',id,codigo_salon];
+    } else {
+        const params = [' ',id,codigo_salon];
+    }
+
+
+
+
+
+    
+    return new Promise ((resolve,reject) => {
+        db.serialize(() =>{
+            db.run(query, params, (err, rows)  =>{
+                if (err) {
+                    console.log(err.message)
+                    reject(console.log('Error actualizando el recurso.'))
+                }
+                resolve(rows)
+                
+            })
+        })
+
+    })
+}
+
+const getAsistencia = async (id, codigo_salon) => {
+    const query = `Select * FROM Asistencia WHERE id_estudiante = ? AND codigo_salon = ?;`;
+
+        params = [id, codigo_salon]
+    
+        return new Promise((resolve, reject) => {
+            db.serialize(() => {
+                db.all(query, params, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    
+                    resolve(rows);
+                })
+            })
+        })
+}
+
+
+const getExpiracion = async (id) => {
+    const query = `Select expiracion FROM Sesion WHERE id = ${id};`;
+
+
+    
+        return new Promise((resolve, reject) => {
+            db.serialize(() => {
+                db.all(query, (err, rows) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    
+                    resolve(rows);
+                })
+            })
+        })
+}
+
 module.exports = {
     getEstudiantes,
     getEstudiante,
@@ -184,5 +269,7 @@ module.exports = {
     deleteEstudiante,
     updateEstudiante,
     getCodigoSalon,
-    getCredenciales
+    getCredenciales,
+    setAsistencia,
+    getExpiracion
 }

@@ -33,11 +33,14 @@ router.get('/:id', async (req, res) => {
 
 router.get('/:id/asistencia', async (req, res) => {
     const { id } = req.params;
+    const {errorCodigoDocente, errorCodigoSalon} = req.query;
 
     const curso = await Curso.getCurso(id);
     const docente = await Docente.getDocente(curso.curso[0].id_docente);
     const codigoDocente = await Curso.getCodigoDocente(id);
-    const codigoSalon = await Estudiante.getCodigoSalon(1 ,codigoDocente.id)
+
+    
+    const codigoSalon = await Estudiante.getCodigoSalon(9 ,codigoDocente.id)
 
     const expiracion = new Date(codigoDocente.expiracion);
 
@@ -45,8 +48,14 @@ router.get('/:id/asistencia', async (req, res) => {
     const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // diferencia en minutos
 
     const expirado = diffMins <= 0 ? true : false;  // si han pasado más de 20 min se expiro
+    const loginID = res.id
+    const loginRol = res.rol
 
-    res.render('pages/cursos/asistencia.ejs', { curso, docente, codigoDocente, codigoSalon, expirado });
+
+    console.log(errorCodigoDocente, errorCodigoSalon);
+
+
+    res.render('pages/cursos/asistencia.ejs', { curso, docente, codigoDocente, codigoSalon, expirado, loginID, loginRol, errorCodigoDocente, errorCodigoSalon});
 })
 
 router.get('/:id/agregarHorario', async (req, res) => {

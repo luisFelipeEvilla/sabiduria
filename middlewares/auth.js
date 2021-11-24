@@ -13,7 +13,8 @@ const auth = (req, res, next) => {
     try {
         payload = jwt.verify(accessToken, jwt_secret_key);
         res.rol = payload.rol;
-        res.usuario = payload.usuario
+        res.usuario = payload.usuario;
+        res.id = payload.id;
         next();
     } catch(e) {
         return res.status(401).send();

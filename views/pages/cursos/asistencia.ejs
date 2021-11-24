@@ -18,7 +18,7 @@
                 <p class="card-text"><b>Código Del Docente:</b> <%=codigoDocente.codigo_docente%> </p>
                 <p class="card-text"><b>Código Del Salón</b> <%=codigoSalon.codigo_salon%></p>
                 <% 
-                  if (!expirado)  { %> 
+                  if (expirado)  { %> 
                     <form action="/docentes/codigo/<%=docente.docente[0].id%>/<%=curso.curso[0].id%>" method="POST" enctype="application/x-www-form-urlencoded">
                       <button type="submit" class="btn btn-success">Generar Codigos</button>
                     </form>
@@ -26,27 +26,39 @@
             </div>
         </div>
 
+        <% if (loginRol == 'e') {%>
+
         <div class="card" style="width: 600px; margin-top: 20px;">
-            <form>
+            <form action="/estudiantes/codigo/<%= loginID %>/<%= codigoDocente.codigo_docente %>/<%= codigoSalon.codigo_salon %>/<%=curso.curso[0].id%>" method="POST" enctype="application/x-www-form-urlencoded">
                 <div class="card-body">
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Código Docente</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail3">
+                          <input type="text" class="form-control" name="codigo_docente"id="codigo_docente">
+                          <% if (errorCodigoDocente === 'true') { %>
+                            <label id="slsl" class="invalid-feedback" style="display: block;">El codigo ingresado es erroneo.</label>
+                        <%} %>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword3" class="col-sm-2 col-form-label">Código Salón</label>
                         <div class="col-sm-10">
-                          <input type="password" class="form-control" id="inputPassword3">
+                          <input type="text" class="form-control" name="codigo_salon"id="codigo_salon">
+                          <% if (errorCodigoSalon === 'true') { %>
+                            <label id="las" class="invalid-feedback" style="display: block;">El codigo ingresado es erroneo.</label>
+                        <%} %>
                         </div>
                       </div>
                         <div class="col-sm-10">
                           <button type="submit" class="btn btn-primary">Confirmar asistencia</button>
+                          <% if (errorCodigoDocente !== 'false' && errorCodigoSalon !== 'false') { %>
+                          <button type="submit" class="btn btn-primary">Confirmar asistencia</button>
+                          <%  } %>
                         </div>
                       </div>
                     </form>
                 </div>
+         <% }%>
         </div>
     </div>
 </main>

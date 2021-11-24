@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
             }))
         } else {
             const token = jwt.sign(
-                { usuario: resultado.usuario, rol: resultado.rol},
+                { usuario: resultado.usuario, rol: resultado.rol, id: resultado.id},
                 jwt_secret_key,
                 {
                     expiresIn: '3d'

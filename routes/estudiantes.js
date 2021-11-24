@@ -6,6 +6,7 @@ const Periodo = require('../db/Periodos.js');
 const Curso = require('../db/Cursos.js');
 const Matricula = require('../db/Matricula.js');
 const { cryptPassword } = require('../utils/encriptacion');
+const url = require('url');   
 
 
 router.get('/', async (req, res) => {
@@ -62,6 +63,7 @@ router.get('/:id/agregarCurso', async (req, res) => {
     const cursos = await Curso.getCursos();
     const periodos = await Periodo.getPeriodos();
 
+
     res.render('pages/estudiantes/agregarCurso.ejs', {
         estudiante,
         cursos, 
@@ -104,5 +106,51 @@ router.post('/:id/actualizar', async (req,res)=> {
 
     res.redirect("/estudiantes")
 })
+router.post('/codigo/:id/:codigoDocente/:codigoSalon/:idCurso', async (req,res)=> {
+    const { id, codigoDocente, codigoSalon, idCurso } = req.params;
+    const { codigo_docente, codigo_salon} = req.body
+
+    if (codigo_docente != codigoDocente ) {
+        res.redirect(url.format({
+            pathname: '/cursos/'+idCurso+'/asistencia',
+            query: {
+                "errorCodigoDocente": true,
+                "errorCodigoSalon": false
+
+            }
+        }))
+    } else if (codigo_salon != codigoSalon ) {
+       
+            res.redirect(url.format({
+                pathname: '/cursos/'+idCurso+'/asistencia',
+                query: {
+                    "errorCodigoSalon": true,
+                    "errorCodigoDocente": false 
+                }
+            }))
+        
+    } else {
+
+        await Estudiante.setAsistencia(id, codigoSalon)
+
+        res.redirect(url.format({
+            pathname: '/cursos/'+idCurso+'/asistencia',
+            query: {
+                "errorCodigoSalon": false,
+                "errorCodigoDocente": false 
+            }
+        }))
+
+        
+    }
+    
+    
+    
+
+    
+
+    
+})
+
 
 module.exports = router;

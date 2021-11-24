@@ -195,6 +195,7 @@ const getCodigoDocente = async (id) => {
                 if (err) {
                     console.log(err.message);
                 }
+                console.log(rows)
                 resolve(rows);
             })
         })
