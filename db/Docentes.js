@@ -62,7 +62,8 @@ const getDocente = async (id) => {
 }
 
 const getCredenciales = async (usuario) => {
-    const query = `SELECT 
+    const query = `SELECT
+        d.id,
         d.usuario,
         d.contrasena,
         d.rol
@@ -164,7 +165,7 @@ const createCodes = async (id, id_curso) => {
 
         const ahora = new Date();
         const expiracion = new Date(ahora);
-        expiracion.setMinutes(ahora.getMinutes() + 20);
+        expiracion.setMinutes(ahora.getMinutes() + 1);
 
         const query = `INSERT INTO Sesion (id_horario, codigo_docente, expiracion) VALUES (?, ?, ?)`
         const params = [1, codigoDocente, expiracion];
