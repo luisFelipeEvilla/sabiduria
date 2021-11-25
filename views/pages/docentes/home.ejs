@@ -1,32 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include('../../partials/head'); %>
-</head>
-<body>
-
-<header>
-  <%- include('../../partials/header'); %>
-</header>
-
-<main>
-    <div class="container">
-        <h5>Tus cursos</h5>
-        <div class="row justify-content-around align-items-center" style="padding-top: 20px">
-            <% 
-                docente.cursos.forEach(curso => { %>
-                    <div class="card col-3" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= curso.asignatura %></h5>
-                            <p class="card-text"> <b>Salón:</b> <%= curso.salon %> </p>
-                            <a href="/cursos/<%= curso.id%>" class="card-link">Ver detalle del curso</a>
-                            <a href="/cursos/<%= curso.id%>/asistencia" class="btn btn-primary">Ver asistencia</a>
-                        </div>
-                    </div>
-            <%  }) %>
+  <head>
+    <%- include('../../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../../partials/header'); %></header>
+    <!-- <script>
+      var images = [];
+      index = 0;
+      num = 0;
+      images[1] = 'https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/libros.png';
+      images[2] = 'https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/teacher.png';
+      var create_img_element = function (num) {
+        var img = document.createElement('img');
+        img.src = images[num];
+        elementId = 'cardsita' + num;
+        print(elementId);
+        img.style = 'align-self: center; margin-bottom: 20px; margin-right: 10px';
+        document.getElementById(elementId).appendChild(img);
+      };
+    </script> -->
+    <main>
+      <div class="container">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            border-bottom: 1px solid dimgrey;
+          "
+        >
+          <img
+            src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/teacherr.png"
+            alt="logo student"
+            style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+            id="logo"
+          />
+          <h2>!Bienvenido, profesor!</h2>
         </div>
-    </div>
-</main>
-
-</body>
+        <h5 style="margin-top: 20px">Tus cursos</h5>
+        <div class="row justify-content-around align-items-center" style="padding-top: 20px">
+          <% docente.cursos.map(curso => { %>
+          <div class="card col-3" style="width: 18rem">
+            <div class="card-body" style="display: flex; flex-direction: column">
+              <img
+                src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/algebra.png"
+                alt="logo student"
+                style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+                id="logo"
+              />
+              <h5 class="card-title"><%= curso.asignatura %></h5>
+              <p class="card-text"><b>Salón:</b> <%= curso.salon %></p>
+              <a href="/cursos/<%= curso.id%>" class="card-link">Ver detalles del curso</a>
+              <a
+                href="/cursos/<%= curso.id%>/asistencia"
+                class="btn btn-primary"
+                style="margin-top: 10px"
+                >Ver asistencia</a
+              >
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
