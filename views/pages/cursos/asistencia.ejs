@@ -11,9 +11,20 @@
 
 <main>
     <div class="container" style="padding-top: 20px;">
-
-        <div class="card" style="width: 400px">
-            <div class="card-body">
+      <div style="display: flex; align-items: center;">
+        <img
+            src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/warning.png"
+            alt="logo student"
+            style="align-self: center; margin-bottom: 20px; margin-right: 30px"
+            id="logo"
+          />
+     <div style="display: flex; flex-direction:column ;">
+      <h5 > Digita esta información</h5>
+      <h5 style="margin-top: -7px;" > para registrar asistencias:</h5>
+     </div>
+      </div>
+        <div class="card" style="width: 400px; margin-bottom: 40px;">
+            <div class="card-body" >
                 <h5 class="card-title">Información de asistencia</h5>
                 <%if (codigoDocente != null){ %>
 
@@ -30,7 +41,7 @@
                 <p class="card-text"><b>Código Del Salón</b> <%=codigoSalon.codigo_salon%></p>
                 <%  } else {%>
 
-                  <p class="card-text"><b>Código Del Salón:</b></p>
+                  
                   <% }%>
                 <% 
                   if (expirado || expirado == null)  { %> 
@@ -77,8 +88,16 @@
 
 
          <%if (asistencia != null) {%>
-
-          <table class="table">
+          <div style="display: flex; align-items: center;">
+            <img
+            src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/note.png"
+            alt="logo student"
+            style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+            id="logo"
+          />
+            <h5>Lista de estudiantes</h5>
+          </div>
+          <table class="table" >
             <thead>
               <tr>
                 <th scope="col-4">#</th>
