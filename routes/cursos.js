@@ -6,6 +6,7 @@ const Docente = require('../db/Docentes.js');
 const Salon = require('../db/Salones.js');
 const Horario = require('../db/Horarios.js');
 const Estudiante = require('../db/Estudiantes');
+const Asistencia = require('../db/Asistencia');
 
 router.get('/', async (req, res) => {
     const cursos = await Curso.getCursos();
@@ -31,17 +32,18 @@ router.get('/:id', async (req, res) => {
     res.render('pages/cursos/detalle.ejs', { curso });
 })
 
-router.get('/:id/asistencia', async (req, res) => {
-    const { id } = req.params;
+router.get('/:id/:id_horario/asistencia', async (req, res) => {
+    const { id, id_horario } = req.params;
     const {errorCodigoDocente, errorCodigoSalon} = req.query;
 
     const curso = await Curso.getCurso(id);
     const docente = await Docente.getDocente(curso.curso[0].id_docente);
     const codigoDocente = await Curso.getCodigoDocente(id);
-
-    
-    const codigoSalon = await Estudiante.getCodigoSalon(9 ,codigoDocente.id)
-
+    let codigoSalon;
+    if(res.rol == 'e'){
+        codigoSalon = await Estudiante.getCodigoSalon(res.id ,codigoDocente.id)
+    }
+   
     const expiracion = new Date(codigoDocente.expiracion);
 
     const diffMs = expiracion - new Date(); // diferencia en milisegundos 
@@ -51,11 +53,15 @@ router.get('/:id/asistencia', async (req, res) => {
     const loginID = res.id
     const loginRol = res.rol
 
+    const asistencia = await Asistencia.getListaAsistencia(codigoDocente.id) 
 
-    console.log(errorCodigoDocente, errorCodigoSalon);
+    console.log(asistencia)
 
 
-    res.render('pages/cursos/asistencia.ejs', { curso, docente, codigoDocente, codigoSalon, expirado, loginID, loginRol, errorCodigoDocente, errorCodigoSalon});
+
+
+
+    res.render('pages/cursos/asistencia.ejs', { curso, docente, codigoDocente, codigoSalon, expirado, loginID, loginRol, errorCodigoDocente, errorCodigoSalon, asistencia, id_horario});
 })
 
 router.get('/:id/agregarHorario', async (req, res) => {
@@ -69,6 +75,10 @@ router.get('/:id/agregarHorario', async (req, res) => {
 router.post('/:id/agregarHorario', async (req, res) => {
     const { id } = req.params;
     const { dia, hora_inicio, hora_fin } = req.body
+    console.log('aaaaaaaaa')
+    console.log(hora_inicio)
+
+
 
     const resultado = await Horario.addHorario(dia, hora_inicio, hora_fin, id)
 

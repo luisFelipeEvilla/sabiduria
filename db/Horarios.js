@@ -30,6 +30,21 @@ const getHorarios = async () => {
     })
 }
 
+const getWeekDay =  (dia) => {
+    var inputMap = {
+        "Lunes": 1,
+        "Martes": 2,
+        "Miercoles": 3,
+        "Jueves": 4,
+        "Viernes": 5,
+        "Sabado": 6,
+        "Domingo": 0,
+      };
+
+      return inputMap[dia]
+    
+}
+
 const getHorario = async (id) => {
     const query = `SELECT * FROM Horario WHERE id = ${id}`;
 
@@ -116,5 +131,6 @@ module.exports = {
     getHorario,
     addHorario,
     deleteHorario,
-    updateHorario
+    updateHorario,
+    getWeekDay
 }

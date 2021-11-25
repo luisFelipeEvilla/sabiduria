@@ -16,10 +16,12 @@
             <div class="card-body">
                 <h5 class="card-title">Información de asistencia</h5>
                 <p class="card-text"><b>Código Del Docente:</b> <%=codigoDocente.codigo_docente%> </p>
+                <% if (loginRol == 'e') {%>
                 <p class="card-text"><b>Código Del Salón</b> <%=codigoSalon.codigo_salon%></p>
+                <%  }%>
                 <% 
                   if (expirado)  { %> 
-                    <form action="/docentes/codigo/<%=docente.docente[0].id%>/<%=curso.curso[0].id%>" method="POST" enctype="application/x-www-form-urlencoded">
+                    <form action="/docentes/codigo/<%=docente.docente[0].id%>/<%=curso.curso[0].id%>/<%=id_horario%>" method="POST" enctype="application/x-www-form-urlencoded">
                       <button type="submit" class="btn btn-success">Generar Codigos</button>
                     </form>
                   <%  } %>
@@ -57,8 +59,46 @@
                         </div>
                       </div>
                     </form>
-                </div>
+        </div>
          <% }%>
+
+
+
+
+         <table class="table">
+          <thead>
+            <tr>
+              <th scope="col-4">#</th>
+              <th scope="col-4">Estudiante</th>
+              <th scope="col-4">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+              <% 
+                  let contador = 1;
+
+                  asistencia.forEach(asistencia => { %>
+                  <tr>
+                      <td><%= contador++ %></td>
+                      <td><%= asistencia.nombre %></td>
+                      <% if (asistencia.asistencia === '+'){%>
+                        <td>Inasistente</td>
+                        <%} else if (asistencia.asistencia ==='-') { %>
+                        <td>Retrasado</td>
+                        <%} else { %>
+                        <td>Asistió</td>
+                        <%} %>
+                       
+            </tr>
+             <% }); %> 
+            <tr>
+          </tbody>
+        </table>
+
+
+
+
+
         </div>
     </div>
 </main>

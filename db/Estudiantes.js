@@ -181,9 +181,9 @@ const getCredenciales = async (usuario) => {
 const setAsistencia = async (id, codigo_salon) => {
     const query = `UPDATE Asistencia
         SET asistencia = ?
-        WHERE id = ? AND 
+        WHERE id_estudiante = ? AND 
         codigo_salon = ?;`;
-    //const params = [nombre, id_plan_de_estudio, id_periodo_ingreso, id]
+
 
     const asistencia = await getAsistencia(id, codigo_salon);
 
@@ -192,37 +192,53 @@ const setAsistencia = async (id, codigo_salon) => {
 
     //TODO: PROBAR ESTA COSA
 
-    const expiracion = new Date(tiempoExp);
+    const expiracion = new Date(tiempoExp[0].expiracion);
 
     const diffMs = expiracion - new Date(); // diferencia en milisegundos 
     const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // diferencia en minutos
 
-    const retraso = diffMins <= 10 ? true : false;  // si han pasado más de 20 min se expiro
+    retraso = diffMins <= 10 ? true : false;  // si han pasado más de 10 min llegó tarde
 
     if (retraso) {
         const params = ['-',id,codigo_salon];
-    } else {
-        const params = [' ',id,codigo_salon];
+        console.log('Llegó tarde')
+        return new Promise ((resolve,reject) => {
+            db.serialize(() =>{
+                db.run(query, params, (err, rows)  =>{
+                    if (err) {
+                        console.log(err.message)
+                        reject(console.log('Error actualizando el recurso.'))
+                    }
+                    resolve(rows)
+                    
+                })
+            })
+    
+        })
+    } else  if (diffMins <= 0){
+        console.log('Inasistencia')
+        const params = ['+',id,codigo_salon];
+        return new Promise ((resolve,reject) => {
+            db.serialize(() =>{
+                db.run(query, params, (err, rows)  =>{
+                    if (err) {
+                        console.log(err.message)
+                        reject(console.log('Error actualizando el recurso.'))
+                    }
+                    resolve(rows)
+                    
+                })
+            })
+    
+        })
     }
 
-
+    
 
 
 
     
-    return new Promise ((resolve,reject) => {
-        db.serialize(() =>{
-            db.run(query, params, (err, rows)  =>{
-                if (err) {
-                    console.log(err.message)
-                    reject(console.log('Error actualizando el recurso.'))
-                }
-                resolve(rows)
-                
-            })
-        })
 
-    })
 }
 
 const getAsistencia = async (id, codigo_salon) => {

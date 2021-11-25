@@ -15,7 +15,7 @@
 
         <% if (claseCurso != null && claseHorario != null) { %>
 
-            <h5>"Es hora de clase. ¡Iniciala para que tus estudiantes asistan!" </h5>
+            <h5>"Es hora de clase. ¡No llegues tarde!" </h5>
             <div class="card col-3" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><%= claseCurso.asignatura %></h5>
@@ -33,7 +33,7 @@
 
             
             <% 
-                docente.cursos.forEach(curso => { %>
+                estudiante.cursos.forEach(curso => { %>
                     <div class="card col-3" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title"><%= curso.asignatura %></h5>
