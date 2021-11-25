@@ -4,14 +4,45 @@
     <%- include('../partials/head'); %>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
+  <body
+    style="
+      background-image: url(https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/bg-admin.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    "
+  >
     <header><%- include('../partials/header'); %></header>
     <main>
-      <div class="container" style="width: 100vw">
-        <h1 style="margin-top: 20px">!Bienvenido, administrador!</h1>
+      <div
+        class="container"
+        style="
+          height: 100%;
+          background-color: white;
+          padding: 20px;
+          border-radius: 10px;
+          margin-top: 10px;
+          box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/admin.png"
+            alt="logo student"
+            style="align-self: center; margin-bottom: 20px; margin-right: 20px"
+            id="logo"
+          />
+          <h1 style="margin-top: 20px">!Bienvenido, administrador!</h1>
+        </div>
         <div
           class="row justify-content-around align-items"
-          style="padding-top: 20px; width: 100%; display: flex; gap: 20px; flex-wrap: nowrap"
+          style="
+            padding-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            margin: 0;
+            gap: 10px;
+          "
         >
           <div class="card col-4" style="width: 18rem">
             <div class="card-body" style="display: flex; flex-direction: column">
@@ -55,7 +86,14 @@
 
         <div
           class="row justify-content-around"
-          style="padding-top: 20px; width: 100%; display: flex; gap: 20px; flex-wrap: nowrap"
+          style="
+            padding-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            margin: 0;
+            gap: 10px;
+          "
         >
           <div class="card col-4" style="width: 18rem">
             <div class="card-body" style="display: flex; flex-direction: column">
@@ -102,9 +140,10 @@
             padding-top: 20px;
             width: 100%;
             display: flex;
-            gap: 20px;
             flex-wrap: nowrap;
-            margin-left: -34px;
+            margin: 0;
+            gap: 10px;
+            margin-left: -10px;
           "
         >
           <div class="card col-4" style="width: 18rem">
