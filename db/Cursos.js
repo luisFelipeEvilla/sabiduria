@@ -202,6 +202,31 @@ const getCodigoDocente = async (id) => {
     })
 }
 
+const getIDSesion = async (id) => {
+    let query = `SELECT s.codigo_docente, s.expiracion, s.id
+        FROM Curso c
+            INNER JOIN
+            Horario h ON (h.id_curso = c.id) 
+            INNER JOIN
+            Sesion s ON (s.id_horario = h.id) 
+        WHERE h.id = ${id}
+        ORDER BY s.expiracion DESC LIMIT 1`;
+
+    return new Promise((resolve, reject) => {
+        db.serialize(() => {
+            db.get(query, (err, rows) => {
+                if (err) {
+                    console.log(err.message);
+                }
+                console.log(rows)
+                resolve(rows);
+            })
+        })
+    })
+}
+
+
+
 module.exports = {
     getCursos,
     getCurso,
@@ -210,5 +235,6 @@ module.exports = {
     updateCurso,
     updateDocente,
     updateAsignatura,
-    getCodigoDocente
+    getCodigoDocente,
+    getIDSesion
 }

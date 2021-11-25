@@ -113,8 +113,8 @@ router.get('/', async (req, res) => {
 
 
                     if (datetext >= horario.hora_inicio && datetext <= horario.hora_fin && dia == date.getDay()) {
-                        sesion =  await Curso.getCodigoDocente(horario.id)
-                        console.log(sesion)
+                        sesion =  await Curso.getIDSesion(horario.id)
+
                         if (sesion != null){
                             const expiracion = new Date(sesion.expiracion);
 
