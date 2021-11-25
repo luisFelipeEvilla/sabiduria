@@ -8,15 +8,36 @@
 
     <main>
       <div class="container">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            border-bottom: 1px solid dimgrey;
+          "
+        >
+          <img
+            src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/teacherr.png"
+            alt="logo student"
+            style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+            id="logo"
+          />
+          <h2>!Bienvenido, profesor!</h2>
+        </div>
         <% if (claseCurso != null && claseHorario != null) { %>
-        <img
-          src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/clock.png"
-          alt="logo student"
-          style="align-self: center; margin-bottom: 20px; margin-right: 10px"
-          id="logo"
-        />
-        <h5>Es hora de clase,</h5>
-        <h4 style="margin-bottom: 20px">¡Iniciala para que tus estudiantes asistan!</h4>
+        <div style="display: flex; margin-top: 20px">
+          <img
+            src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/clock.png"
+            alt="logo student"
+            style="align-self: center; margin-bottom: 20px; margin-right: 20px"
+            id="logo"
+          />
+          <div>
+            <h5>Es hora de clase,</h5>
+            <h4 style="margin-bottom: 20px">¡Iniciala para que tus estudiantes asistan!</h4>
+          </div>
+        </div>
+
         <div class="card col-3" style="width: 18rem">
           <div class="card-body" style="display: flex; flex-direction: column">
             <img
@@ -37,14 +58,20 @@
             >
           </div>
         </div>
-
+        <div style="width: 100%; border-bottom: 1px solid dimgray; margin-top: 30px"></div>
         <% } %>
 
-        <h5>Tus cursos</h5>
+        <h4 style="margin-top: 20px">Tus cursos</h4>
         <div class="row justify-content-around align-items-center" style="padding-top: 20px">
           <% docente.cursos.forEach(curso => { %>
           <div class="card col-3" style="width: 18rem">
-            <div class="card-body">
+            <div class="card-body" style="display: flex; flex-direction: column">
+              <img
+                src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/biology.png"
+                alt="logo student"
+                style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+                id="logo"
+              />
               <h5 class="card-title"><%= curso.asignatura %></h5>
               <p class="card-text"><b>Salón:</b> <%= curso.salon %></p>
               <a href="/cursos/<%= curso.id%>" class="card-link">Ver detalle del curso</a>

@@ -35,7 +35,12 @@ router.get('/', async (req, res) => {
                     const horario = cursoInfo.horarios[j]
                     const dia =  await Horario.getWeekDay(horario.dia)
 
-                    if (datetext => horario.hora_inicio && datetext <= horario.hora_fin && dia == date.getDay()) {
+                    
+
+                    if (datetext >= horario.hora_inicio && datetext <= horario.hora_fin && dia == date.getDay()) {
+
+                        console.log(dia)
+                        console.log(date.getDay())
                         console.log("Its class time bitch profesor")
                          claseCurso = curso;
                          claseHorario = horario;
@@ -107,7 +112,7 @@ router.get('/', async (req, res) => {
 
 
 
-                    if (datetext => horario.hora_inicio && datetext <= horario.hora_fin && dia == date.getDay()) {
+                    if (datetext >= horario.hora_inicio && datetext <= horario.hora_fin && dia == date.getDay()) {
                         sesion =  await Curso.getCodigoDocente(horario.id)
                         console.log(sesion)
                         if (sesion != null){
