@@ -9,13 +9,27 @@
     <main>
       <div class="container">
         <% if (claseCurso != null && claseHorario != null) { %>
-
-        <h5>"Es hora de clase. ¡Iniciala para que tus estudiantes asistan!"</h5>
+        <img
+          src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/clock.png"
+          alt="logo student"
+          style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+          id="logo"
+        />
+        <h5>Es hora de clase,</h5>
+        <h4 style="margin-bottom: 20px">¡Iniciala para que tus estudiantes asistan!</h4>
         <div class="card col-3" style="width: 18rem">
-          <div class="card-body">
+          <div class="card-body" style="display: flex; flex-direction: column">
+            <img
+              src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/algebra.png"
+              alt="logo student"
+              style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+              id="logo"
+            />
             <h5 class="card-title"><%= claseCurso.asignatura %></h5>
             <p class="card-text"><b>Salón:</b> <%= claseCurso.salon %></p>
-            <a href="/cursos/<%= claseCurso.id%>" class="card-link">Ver detalle del curso</a>
+            <a href="/cursos/<%= claseCurso.id%>" class="card-link" style="margin-bottom: 10px"
+              >Ver detalle del curso</a
+            >
             <a
               href="/cursos/<%= claseCurso.id%>/<%= claseHorario.id%>/asistencia/"
               class="btn btn-primary"
