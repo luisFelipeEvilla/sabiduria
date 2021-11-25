@@ -18,6 +18,7 @@ const homeDocente = require('./routes/home');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const { auth, isAdmin } = require('./middlewares/auth');
+const { PORT_SERVER } = require('./config'); 
 
 const app = express();
 
@@ -43,8 +44,6 @@ app.use('/admin', auth, isAdmin, admin);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/', auth, homeDocente );
-
-const PORT = 3000;
 
 app.listen(PORT, (err) => {
     if (err) {
