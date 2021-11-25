@@ -29,7 +29,9 @@ router.get('/:id', async (req, res) => {
 
     console.log(curso);
 
-    res.render('pages/cursos/detalle.ejs', { curso });
+    const loginRol = res.rol;
+
+    res.render('pages/cursos/detalle.ejs', { curso, loginRol });
 })
 
 router.get('/:id/:id_horario/asistencia', async (req, res) => {

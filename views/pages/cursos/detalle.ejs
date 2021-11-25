@@ -44,7 +44,14 @@
 
             <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                 <h4>Horarios de este curso</h4>
-                <a href="<%= curso.curso[0].id %>/agregarHorario" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Horario</a>
+
+                <% if (loginRol =='a'){%>
+                  <td>
+                    <a href="<%= curso.curso[0].id %>/agregarHorario" class="btn btn-success btn" role="button" aria-disabled="true">Agregar Horario</a>
+                </td>
+
+                <% } %>
+                
               
               </div>
                 <table class="table">
@@ -66,9 +73,13 @@
                                 <td><%= horario.dia %></td> 
                                 <td><%= horario.hora_inicio %></td> 
                                 <td><%= horario.hora_fin %></td> 
-                                <td>
+                                <% if (loginRol =='a'){%>
+                                  <td>
                                     <a href="./<%= curso.curso[0].id %>/eliminarHorario/<%= horario.id %>/" class="btn btn-danger">Eliminar</button>
                                 </td>
+
+                                <% } %>
+                                
                                 
 
                                                         

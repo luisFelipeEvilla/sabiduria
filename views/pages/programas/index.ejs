@@ -11,9 +11,14 @@
 
 <main>
     <div class="container" style="padding-top: 20px;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-        <h3>Programas</h3>
-        <a href="programas/agregar" class="btn btn-success btn" role="button" aria-disabled="true">Agregar</a>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center;">
+        <img
+                src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/education.png"
+                alt="logo dpto"
+                style="align-self: center; margin-bottom: 20px"
+              />
+        <h3>Programas Académicos</h3>
+        <a href="programas/agregar" class="btn btn-success btn" role="button" aria-disabled="true" style="height: 40px;">Agregar</a>
       </div>
         <table class="table">
             <thead>
@@ -34,8 +39,8 @@
                         <td><%= programa.nombre %></td>
                         <td><%= programa.departamento %></td>
                         <td>
-                            <a href="programas/<%= programa.id %>/actualizar" type="button" class="btn btn-info">Actualizar</button>
-                            <a href="programas/<%= programa.id %>/eliminar" class="btn btn-danger">Eliminar</button>
+                            <a href="programas/<%= programa.id %>/actualizar" type="button" class="btn btn-info" style="margin-right: 10px;">Actualizar</button>
+                            <a href="programas/<%= programa.id %>/eliminar" class="btn btn-danger" style="margin-right: 10px;">Eliminar</button>
                               <a href="programas/<%= programa.id %>" class="btn btn-warning">Detalle</button>
                         </td>                        
               </tr>
