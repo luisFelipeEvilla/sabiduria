@@ -95,12 +95,12 @@ router.post('/:id/agregarCurso', async (req, res) => {
     res.redirect('/docentes/'+id)
 });
 
-router.post('/codigo/:id/:curso', async (req, res) => {
-    const { id, curso } = req.params;
+router.post('/codigo/:id/:curso/:id_horario', async (req, res) => {
+    const { id, curso, id_horario } = req.params;
     
-    const resultado = await Docente.createCodes(id, curso);
+    const resultado = await Docente.createCodes(id, curso, id_horario);
 
-    res.redirect(`/cursos/${curso}/asistencia`);
+    res.redirect(`/cursos/${curso}/${id_horario}/asistencia`);
 });
 
 router.post('/', async (req, res)  => {

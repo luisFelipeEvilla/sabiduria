@@ -15,11 +15,26 @@
         <div class="card" style="width: 400px">
             <div class="card-body">
                 <h5 class="card-title">Información de asistencia</h5>
-                <p class="card-text"><b>Código Del Docente:</b> <%=codigoDocente.codigo_docente%> </p>
+                <%if (codigoDocente != null){ %>
+
+                  <p class="card-text"><b>Código Del Docente:</b> <%=codigoDocente.codigo_docente%> </p>
+
+                  <% } else { %>
+
+                  <p class="card-text"><b>Código Del Docente:</b> Aun no has generado el codigo </p>
+
+                <% } %>
+
+
+                <% if (loginRol == 'e') {%>
                 <p class="card-text"><b>Código Del Salón</b> <%=codigoSalon.codigo_salon%></p>
+                <%  } else {%>
+
+                  <p class="card-text"><b>Código Del Salón:</b></p>
+                  <% }%>
                 <% 
-                  if (expirado)  { %> 
-                    <form action="/docentes/codigo/<%=docente.docente[0].id%>/<%=curso.curso[0].id%>" method="POST" enctype="application/x-www-form-urlencoded">
+                  if (expirado || expirado == null)  { %> 
+                    <form action="/docentes/codigo/<%=docente.docente[0].id%>/<%=curso.curso[0].id%>/<%=id_horario%>" method="POST" enctype="application/x-www-form-urlencoded">
                       <button type="submit" class="btn btn-success">Generar Codigos</button>
                     </form>
                   <%  } %>
@@ -29,7 +44,7 @@
         <% if (loginRol == 'e') {%>
 
         <div class="card" style="width: 600px; margin-top: 20px;">
-            <form action="/estudiantes/codigo/<%= loginID %>/<%= codigoDocente.codigo_docente %>/<%= codigoSalon.codigo_salon %>/<%=curso.curso[0].id%>" method="POST" enctype="application/x-www-form-urlencoded">
+            <form action="/estudiantes/codigo/<%= loginID %>/<%= codigoDocente.codigo_docente %>/<%= codigoSalon.codigo_salon %>/<%=curso.curso[0].id%>/<%=id_horario%>" method="POST" enctype="application/x-www-form-urlencoded">
                 <div class="card-body">
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Código Docente</label>
@@ -57,8 +72,50 @@
                         </div>
                       </div>
                     </form>
-                </div>
+        </div>
          <% }%>
+
+
+         <%if (asistencia != null) {%>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-4">#</th>
+                <th scope="col-4">Estudiante</th>
+                <th scope="col-4">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% 
+                    let contador = 1;
+  
+                    asistencia.forEach(asistencia => { %>
+                    <tr>
+                        <td><%= contador++ %></td>
+                        <td><%= asistencia.nombre %></td>
+                        <% if (asistencia.asistencia === '+'){%>
+                          <td>Inasistente</td>
+                          <%} else if (asistencia.asistencia ==='-') { %>
+                          <td>Retrasado</td>
+                          <%} else { %>
+                          <td>Asistió</td>
+                          <%} %>
+                         
+              </tr>
+               <% }); %> 
+              <tr>
+            </tbody>
+          </table>
+
+          <% }%>
+
+
+
+
+
+
+
         </div>
     </div>
 </main>
