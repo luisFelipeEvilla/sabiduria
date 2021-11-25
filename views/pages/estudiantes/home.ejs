@@ -14,6 +14,7 @@
             align-items: center;
             margin-top: 20px;
             border-bottom: 1px solid dimgrey;
+            margin-bottom: 20px;
           "
         >
           <img
@@ -26,18 +27,37 @@
         </div>
 
         <% if (claseCurso != null && claseHorario != null) { %>
-
-        <h5>"Es hora de clase. ¡No llegues tarde!"</h5>
-        <div class="card col-3" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title"><%= claseCurso.asignatura %></h5>
-            <p class="card-text"><b>Salón:</b> <%= claseCurso.salon %></p>
-            <a href="/cursos/<%= claseCurso.id%>" class="card-link">Ver detalle del curso</a>
-            <a
-              href="/cursos/<%= claseCurso.id%>/<%= claseHorario.id%>/asistencia/"
-              class="btn btn-primary"
-              >Ver asistencia</a
-            >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/exclamation.png"
+            alt="logo student"
+            style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+            id="logo"
+          />
+          <div style="margin-top: -7px">
+            <h5>Es hora de clase.</h5>
+            <h4 style="margin-top: -7px">¡No llegues tarde!</h4>
+          </div>
+        </div>
+        <div style="width: 100%; border-bottom: 1px solid dimgray">
+          <div class="card col-3" style="width: 18rem; margin-bottom: 30px">
+            <div class="card-body" style="display: flex; flex-direction: column">
+              <img
+                src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/algebra2.png"
+                alt="logo student"
+                style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+                id="logo"
+              />
+              <h5 class="card-title"><%= claseCurso.asignatura %></h5>
+              <p class="card-text"><b>Salón:</b> <%= claseCurso.salon %></p>
+              <a href="/cursos/<%= claseCurso.id%>" class="card-link">Ver detalle del curso</a>
+              <a
+                href="/cursos/<%= claseCurso.id%>/<%= claseHorario.id%>/asistencia/"
+                class="btn btn-primary"
+                style="margin-top: 10px"
+                >Ver asistencia</a
+              >
+            </div>
           </div>
         </div>
 
@@ -47,7 +67,13 @@
         <div class="row justify-content-around align-items-center" style="padding-top: 20px">
           <% estudiante.cursos.forEach(curso => { %>
           <div class="card col-3" style="width: 18rem">
-            <div class="card-body">
+            <div class="card-body" style="display: flex; flex-direction: column">
+              <img
+                src="https://raw.githubusercontent.com/lineroml/imgs_sabiduria/main/knowledge.png"
+                alt="logo student"
+                style="align-self: center; margin-bottom: 20px; margin-right: 10px"
+                id="logo"
+              />
               <h5 class="card-title"><%= curso.asignatura %></h5>
               <p class="card-text"><b>Salón:</b> <%= curso.salon %></p>
               <a href="/cursos/<%= curso.id%>" class="card-link">Ver detalle del curso</a>
