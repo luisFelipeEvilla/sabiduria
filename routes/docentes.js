@@ -100,7 +100,7 @@ router.post('/codigo/:id/:curso/:id_horario', async (req, res) => {
     
     const resultado = await Docente.createCodes(id, curso, id_horario);
 
-    res.redirect(`/cursos/${curso}/asistencia`);
+    res.redirect(`/cursos/${curso}/${id_horario}/asistencia`);
 });
 
 router.post('/', async (req, res)  => {

@@ -215,9 +215,9 @@ const setAsistencia = async (id, codigo_salon) => {
             })
     
         })
-    } else  if (diffMins <= 0){
-        console.log('Inasistencia')
-        const params = ['+',id,codigo_salon];
+    } else{
+        console.log('Puntual')
+        const params = [' ',id,codigo_salon];
         return new Promise ((resolve,reject) => {
             db.serialize(() =>{
                 db.run(query, params, (err, rows)  =>{

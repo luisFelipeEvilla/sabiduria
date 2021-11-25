@@ -165,10 +165,10 @@ const createCodes = async (id, id_curso, id_horario) => {
 
         const ahora = new Date();
         const expiracion = new Date(ahora);
-        expiracion.setMinutes(ahora.getMinutes() + 20);
+        expiracion.setMinutes(ahora.getMinutes() + 2);
 
         const query = `INSERT INTO Sesion (id_horario, codigo_docente, expiracion) VALUES (?, ?, ?)`
-        const params = [1, codigoDocente, expiracion];
+        const params = [id_horario, codigoDocente, expiracion];
 
         db.serialize(() => {
             db.run(query, params, async (err, rows) => {

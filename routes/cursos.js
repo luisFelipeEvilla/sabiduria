@@ -40,28 +40,42 @@ router.get('/:id/:id_horario/asistencia', async (req, res) => {
     const docente = await Docente.getDocente(curso.curso[0].id_docente);
     const codigoDocente = await Curso.getCodigoDocente(id);
     let codigoSalon;
-    if(res.rol == 'e'){
-        codigoSalon = await Estudiante.getCodigoSalon(res.id ,codigoDocente.id)
+    let expirado;
+    let loginID;
+    let loginRol;
+    let asistencia;
+
+    if (codigoDocente != null) {
+
+        if(res.rol == 'e'){
+            codigoSalon = await Estudiante.getCodigoSalon(res.id ,codigoDocente.id)
+        }
+    
+       
+         expiracion = new Date(codigoDocente.expiracion);
+    
+        const diffMs = expiracion - new Date(); // diferencia en milisegundos 
+        const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // diferencia en minutos
+    
+         expirado = diffMins <= 0 ? true : false;  // si han pasado más de 20 min se expiro
+         loginID = res.id
+         loginRol = res.rol
+    
+         asistencia = await Asistencia.getListaAsistencia(codigoDocente.id) 
+    
+        console.log(asistencia)
+
+        
+    
+
     }
-   
-    const expiracion = new Date(codigoDocente.expiracion);
-
-    const diffMs = expiracion - new Date(); // diferencia en milisegundos 
-    const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // diferencia en minutos
-
-    const expirado = diffMins <= 0 ? true : false;  // si han pasado más de 20 min se expiro
-    const loginID = res.id
-    const loginRol = res.rol
-
-    const asistencia = await Asistencia.getListaAsistencia(codigoDocente.id) 
-
-    console.log(asistencia)
-
-
-
-
-
+    
     res.render('pages/cursos/asistencia.ejs', { curso, docente, codigoDocente, codigoSalon, expirado, loginID, loginRol, errorCodigoDocente, errorCodigoSalon, asistencia, id_horario});
+
+
+
+
+    
 })
 
 router.get('/:id/agregarHorario', async (req, res) => {

@@ -14,11 +14,8 @@ router.get('/', async (req, res) => {
     if (res.rol == 'd') {
 
 
-        const docente = await Docente.getDocente(2);
+        const docente = await Docente.getDocente(res.id);
 
-
-    
-        
     
         let claseCurso;
         let claseHorario;
@@ -29,7 +26,6 @@ router.get('/', async (req, res) => {
 
         const forLoop = async _ => {
     
-          
             for (let i = 0; i < docente.cursos.length; i++) {
                 const curso = docente.cursos[i]
                 const cursoInfo = await Curso.getCurso(curso.id)
@@ -39,17 +35,19 @@ router.get('/', async (req, res) => {
                     const horario = cursoInfo.horarios[j]
                     const dia =  await Horario.getWeekDay(horario.dia)
 
-                    if (datetext > horario.hora_inicio && datetext < horario.hora_fin && dia == date.getDay()) {
-                        console.log("Its class time bitch")
+                    if (datetext => horario.hora_inicio && datetext <= horario.hora_fin && dia == date.getDay()) {
+                        console.log("Its class time bitch profesor")
                          claseCurso = curso;
                          claseHorario = horario;
+                         console.log(claseCurso);
+                         console.log(claseHorario);
+                         console.log("aaaaaaaaaaaaaaaaaaa")
                          
     
                     } 
                     
                 }
-            }
-            
+            } 
       
           }
 
@@ -101,46 +99,49 @@ router.get('/', async (req, res) => {
                 
 
                 for (let j = 0; j < cursoInfo.horarios.length; j++) {
-
+                
                     const horario = cursoInfo.horarios[j]
-                    console.log(horario)
+                    
                     
                     const dia =  await Horario.getWeekDay(horario.dia)
 
-                    if (datetext > horario.hora_inicio && datetext < horario.hora_fin && dia == date.getDay()) {
-                        console.log("Its class time bitch")
-                         claseCurso = curso;
-                         claseHorario = horario;
+
+
+                    if (datetext => horario.hora_inicio && datetext <= horario.hora_fin && dia == date.getDay()) {
+                        sesion =  await Curso.getCodigoDocente(horario.id)
+                        console.log(sesion)
+                        if (sesion != null){
+                            const expiracion = new Date(sesion.expiracion);
+
+                            const diffMs = expiracion - new Date(); 
+                            const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    
+                        
+                            const expirado = diffMins <= 0 ? true : false;  
+                            if (!expirado){
+                                console.log("Its class time bitch")
+                                claseCurso = curso;
+                                claseHorario = horario;
+    
+                            }
+                        }
+                       
+
 
                          
     
                     } 
                     
                 }
-            }
-            
+            }   
       
           }
 
           await forLoop();
           res.render('pages/estudiantes/home.ejs', {estudiante, claseCurso, claseHorario})
 
-
-
-        
     }
 
-
-
-
-   
-
-
-
-
-
-
-    
 })
 
 module.exports = router;

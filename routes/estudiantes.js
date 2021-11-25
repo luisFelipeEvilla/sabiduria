@@ -106,13 +106,13 @@ router.post('/:id/actualizar', async (req,res)=> {
 
     res.redirect("/estudiantes")
 })
-router.post('/codigo/:id/:codigoDocente/:codigoSalon/:idCurso', async (req,res)=> {
-    const { id, codigoDocente, codigoSalon, idCurso } = req.params;
+router.post('/codigo/:id/:codigoDocente/:codigoSalon/:idCurso/:idHorario', async (req,res)=> {
+    const { id, codigoDocente, codigoSalon, idCurso, idHorario } = req.params;
     const { codigo_docente, codigo_salon} = req.body
 
     if (codigo_docente != codigoDocente ) {
         res.redirect(url.format({
-            pathname: '/cursos/'+idCurso+'/asistencia',
+            pathname: '/cursos/'+idCurso+'/'+idHorario+'/asistencia',
             query: {
                 "errorCodigoDocente": true,
                 "errorCodigoSalon": false
@@ -122,7 +122,7 @@ router.post('/codigo/:id/:codigoDocente/:codigoSalon/:idCurso', async (req,res)=
     } else if (codigo_salon != codigoSalon ) {
        
             res.redirect(url.format({
-                pathname: '/cursos/'+idCurso+'/asistencia',
+                pathname: '/cursos/'+idCurso+'/'+idHorario+'/asistencia',
                 query: {
                     "errorCodigoSalon": true,
                     "errorCodigoDocente": false 
@@ -134,7 +134,7 @@ router.post('/codigo/:id/:codigoDocente/:codigoSalon/:idCurso', async (req,res)=
         await Estudiante.setAsistencia(id, codigoSalon)
 
         res.redirect(url.format({
-            pathname: '/cursos/'+idCurso+'/asistencia',
+            pathname: '/cursos/'+idCurso+'/'+idHorario+'/asistencia',
             query: {
                 "errorCodigoSalon": false,
                 "errorCodigoDocente": false 
