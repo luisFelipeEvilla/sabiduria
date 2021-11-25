@@ -14,24 +14,7 @@
       <form action="/cursos/<%= curso.curso[0].id %>/agregarHorario" method="POST" enctype="application/x-www-form-urlencoded">
         <div class="mb-3">
           <label for="nombre" class="form-label">Dia</label>
-          <div class="form-group">
-
-            <select class="form-control" id="dia" name="dia">
-              <option value='Lunes'>Lunes</option>
-              <option value='Martes'>Martes</option>
-              <option value='Miercoles'>Miercoles</option>
-              <option value='Jueves'>Jueves</option>
-              <option value='Viernes'>Viernes</option>
-              <option value='Sabado'>Sábado</option>
-              
-              
-              
-
-                
-                
-
-            </select>
-          </div>
+          <input type="text" class="form-control" id="dia" name="dia" placeholder="Ej: Lunes">
 
           <label for="nombre" class="form-label">Hora Inicio</label>
           <input type="time" min="06:30" max="20:30" id ="hora_inicio" name ="hora_inicio">
