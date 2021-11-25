@@ -45,11 +45,11 @@ app.use('/login', login);
 app.use('/logout', logout);
 app.use('/', auth, homeDocente );
 
-app.listen(PORT, (err) => {
+app.listen(PORT_SERVER, (err) => {
     if (err) {
         console.log(`Ocurrio un error inicializando el servidor \n ${err}`);
         process.exit(-1)
     } else {
-        console.log(`Servidor inicializado correctamente en el puerto ${PORT}`);
+        console.log(`Servidor inicializado correctamente en el puerto ${PORT_SERVER}`);
     }
 })
